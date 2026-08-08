@@ -1,0 +1,166 @@
+/* ==========================================
+   WELCOME / LOGIN PAGE
+   ========================================== */
+
+.welcome-page {
+  min-height: 100vh;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 40px 20px;
+
+  background: #f5f7fb;
+
+  box-sizing: border-box;
+}
+
+
+/* ==========================================
+   LOGIN CARD
+   ========================================== */
+
+.welcome-container {
+  width: 100%;
+  max-width: 500px;
+
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 45px;
+
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+
+  box-sizing: border-box;
+}
+
+
+/* ==========================================
+   HEADER
+   ========================================== */
+
+.welcome-header {
+  text-align: center;
+
+  margin-bottom: 35px;
+}
+
+.welcome-header h1 {
+  margin: 0 0 10px;
+
+  font-size: 36px;
+  font-weight: 700;
+
+  color: #1f2937;
+}
+
+.welcome-header p {
+  margin: 0;
+
+  font-size: 16px;
+  line-height: 1.6;
+
+  color: #6b7280;
+}
+
+
+/* ==========================================
+   LOGIN SECTION
+   ========================================== */
+
+.login-section {
+  width: 100%;
+}
+
+
+/* ==========================================
+   CREATE ACCOUNT OPTION
+   ========================================== */
+
+.create-account-option {
+  margin-top: 30px;
+
+  padding-top: 25px;
+
+  border-top: 1px solid #e5e7eb;
+
+  text-align: center;
+}
+
+.create-account-option p {
+  margin: 0 0 12px;
+
+  font-size: 14px;
+
+  color: #6b7280;
+}
+
+
+/* ==========================================
+   CREATE ACCOUNT BUTTON
+   ========================================== */
+
+.create-account-option button {
+  width: 100%;
+
+  padding: 13px 20px;
+
+  border: 1px solid #2563eb;
+  border-radius: 10px;
+
+  background: white;
+
+  color: #2563eb;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.create-account-option button:hover {
+  background: #2563eb;
+  color: white;
+
+  transform: translateY(-1px);
+}
+
+.create-account-option button:active {
+  transform: translateY(0);
+}
+
+
+/* ==========================================
+   MOBILE
+   ========================================== */
+
+@media (max-width: 600px) {
+
+  .welcome-page {
+    padding: 25px 15px;
+
+    align-items: flex-start;
+  }
+
+  .welcome-container {
+    padding: 30px 20px;
+
+    border-radius: 15px;
+  }
+
+  .welcome-header h1 {
+    font-size: 30px;
+  }
+
+  .welcome-header p {
+    font-size: 14px;
+  }
+}

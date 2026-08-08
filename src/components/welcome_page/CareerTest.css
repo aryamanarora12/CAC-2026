@@ -1,0 +1,127 @@
+
+.career-test {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.career-test h1 {
+  font-size: 42px;
+  margin: 10px 0 25px;
+}
+
+.career-test h2 {
+  margin-bottom: 20px;
+}
+
+.career-test h3 {
+  margin: 20px 0;
+  line-height: 1.5;
+}
+
+
+.career-test button {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.career-test button:hover {
+  opacity: 0.9;
+}
+
+.career-test button:active {
+  transform: scale(0.98);
+}
+
+.career-test button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+.career-test select {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: white;
+  font-size: 16px;
+}
+
+
+.test p {
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.answer-buttons {
+  margin-top: 20px;
+}
+
+.loading {
+  padding: 40px 10px;
+}
+
+.loading p {
+  color: #666;
+}
+
+
+.results {
+  text-align: center;
+}
+
+.results h1 {
+  font-size: 48px;
+  letter-spacing: 6px;
+}
+
+
+.riasec-scores {
+  margin: 20px 0;
+  padding: 15px;
+  background: var(--accent-bg);
+  border-radius: 10px;
+  text-align: left;
+}
+
+.riasec-scores p {
+  margin: 10px 0;
+}
+
+
+.results button {
+  background: var(--accent-bg);
+  color: black;
+}
+
+.results button:hover {
+  opacity: 0.8;
+}
+
+
+@media (max-width: 650px) {
+  .career-test {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .career-test h1 {
+    font-size: 36px;
+  }
+}
+
+
