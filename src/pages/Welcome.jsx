@@ -6,7 +6,6 @@ function Welcome() {
       <p>Welcome to the CAC Website</p>
     </div>
   );
-
 }
 
 export default Welcome;
