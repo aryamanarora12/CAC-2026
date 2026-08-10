@@ -323,7 +323,7 @@ export default function CareerTest({ user, onComplete }) {
       {/* MENU */}
       {mode === "menu" && (
         <div className="menu">
-          <h2>Choose Your Path</h2>
+          <h2>Select a career that you are interested in</h2>
 
           <button onClick={() => setMode("manual")}>
             Select a Career Manually

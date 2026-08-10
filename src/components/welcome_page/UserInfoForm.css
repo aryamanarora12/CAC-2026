@@ -1,72 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-.user-info-form {
-  max-width: 450px;
-  margin: 60px auto;
-  padding: 30px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  text-align: center;
-}
-
-
-.user-info-form h2 {
-  margin-bottom: 20px;
-  color: var(--text-h);
-}
-
-
-.user-info-form form {
+.user-info-page {
+  font-family: "Inter", sans-serif;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  justify-content: center;
+  padding: 60px 20px;
+  background: #f7f8fc;
 }
 
-
-.user-info-form input,
-.user-info-form textarea {
+.user-info-card {
   width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  font-size: 16px;
-  box-sizing: border-box;
+  max-width: 700px;
+  background: white;
+  padding: 50px;
+  border-radius: 24px;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
 }
 
-.user-info-form textarea {
-  resize: vertical;
-  min-height: 80px;
+/* HEADER */
+
+.form-header {
+  text-align: center;
+  margin-bottom: 50px;
 }
 
-.user-info-form button {
-  padding: 12px;
-  background: var(--accent);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
+.form-step {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #4f46e5;
+  margin-bottom: 10px;
 }
 
-.user-info-form button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.form-header h2 {
+  font-size: 34px;
+  margin: 0 0 12px;
+  color: #080808;
 }
 
+.form-header p:last-child {
+  color: #6b7280;
+  margin: 0 auto;
+  max-width: 500px;
+  line-height: 1.6;
+}
 
-.user-info-error {
-  color: #d32f2f;
+/* ERROR */
+
+.auth-error {
+  padding: 12px 15px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  background: #fef2f2;
+  color: #dc2626;
   font-size: 14px;
-  margin: 5px 0;
 }
 
+/* FORM SECTIONS */
 
-@media (max-width: 500px) {
-  .user-info-form {
-    margin: 30px 20px;
-    padding: 20px;
+.form-section {
+  position: relative;
+  display: flex;
+  gap: 20px;
+  padding: 35px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.section-left {
+  padding-right: 60px;
+}
+
+.section-right {
+  padding-left: 60px;
+}
+
+.question-number {
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #4f46e5;
+  padding-top: 3px;
+}
+
+.question-content {
+  flex: 1;
+}
+
+.question-content label {
+  display: block;
+  font-size: 19px;
+  font-weight: 650;
+  color: #111827;
+  margin-bottom: 5px;
+}
+
+.question-description {
+  margin: 0 0 16px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* INPUTS */
+
+input,
+select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: white;
+  font-size: 15px;
+  font-family: inherit;
+  transition: 0.2s ease;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* INTERESTS */
+
+.interests-section {
+  padding-bottom: 40px;
+}
+
+.interest-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.interest-option {
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid #d1d5db;
+  background: white;
+  color: #374151;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.interest-option:hover {
+  border-color: #4f46e5;
+  background: #f5f3ff;
+}
+
+.interest-option.selected {
+  background: #4f46e5;
+  border-color: #4f46e5;
+  color: white;
+}
+
+.other-interest {
+  margin-top: 15px;
+}
+
+/* CONTINUE */
+
+.continue-button {
+  width: 100%;
+  margin-top: 35px;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background: #4f46e5;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.continue-button:hover {
+  transform: translateY(-2px);
+  opacity: 0.92;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .user-info-card {
+    padding: 30px 22px;
   }
+
+  .section-left,
+  .section-right {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .form-section {
+    gap: 12px;
+  }
+
+  .question-content label {
+    font-size: 17px;
+  }
+
 }
+
 
 

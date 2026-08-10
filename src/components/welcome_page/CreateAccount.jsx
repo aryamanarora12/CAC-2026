@@ -11,40 +11,25 @@ export default function CreateAccount({ onComplete }) {
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState("");
 
-  // ==========================================
-  // AUTHENTICATION COMPLETED
-  // ==========================================
-
   function handleAuthSuccess(authData) {
     if (authData.user) {
-        setUser(authData.user);
-        setUsername(authData.username);
+      setUser(authData.user);
+      setUsername(authData.username);
     } else {
-        setUser(authData);
+      setUser(authData);
     }
 
-      setStep("userinfo");
-    }
+    setStep("userinfo");
+  }
 
-  // ==========================================
-  // USER INFORMATION COMPLETED
-  // ==========================================
 
   function handleUserInfoComplete() {
     setStep("career");
   }
 
-  // ==========================================
-  // ACCOUNT SETUP COMPLETED
-  // ==========================================
-
   function handleCareerComplete() {
     onComplete();
   }
-
-  // ==========================================
-  // RENDER
-  // ==========================================
 
   return (
     <div className="create-account">
