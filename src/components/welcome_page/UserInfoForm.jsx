@@ -1,233 +1,11 @@
-/*
-import { useState } from "react";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../firebase";
-import "./UserInfoForm.css";
 
-
-const states = [
-  "Alabama", "Alaska", "Arizona", "Arkansas", "California",
-  "Colorado", "Connecticut", "Delaware", "Florida", "Georgia",
-  "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas",
-  "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
-  "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana",
-  "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico",
-  "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma",
-  "Oregon", "Pennsylvania", "Rhode Island", "South Carolina",
-  "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia",
-  "Washington", "West Virginia", "Wisconsin", "Wyoming"
-];
-const interestOptions = [
-  "Engineering",
-  "Robotics",
-  "Programming",
-  "Computer Science",
-  "Artificial Intelligence",
-  "Science",
-  "Mathematics",
-  "Medicine",
-  "Business",
-  "Entrepreneurship",
-  "Finance",
-  "Writing",
-  "Art & Design",
-  "Music",
-  "Law",
-  "Psychology",
-  "Environmental Science",
-  "Architecture",
-  "Other"
-];
-
-function validateForm() {
-  const nameRegex = /^[A-Za-z\s'-]+$/;
-
-  if (!nameRegex.test(name)) {
-    setError("Please enter a valid name.");
-    return false;
-  }
-
-  if (age < 13 || age > 100) {
-    setError("Please enter a valid age.");
-    return false;
-  }
-
-  if (school.trim().length < 2) {
-    setError("Please enter a valid school name.");
-    return false;
-  }
-
-  if (!state) {
-    setError("Please select your state.");
-    return false;
-  }
-
-  if (interests.length === 0) {
-    setError("Please select at least one interest.");
-    return false;
-  }
-
-  if (
-    interests.includes("Other") &&
-    otherInterest.trim().length === 0
-  ) {
-    setError("Please enter your other interest.");
-    return false;
-  }
-
-  return true;
-}
-function toggleInterest(interest) {
-  setInterests((current) => {
-    if (current.includes(interest)) {
-      return current.filter((item) => item !== interest);
-    }
-
-    return [...current, interest];
-  });
-}
-
-export default function UserInfoForm({ user, onSubmit }) {
-  const [name, setName] = useState("");
-  const [school, setSchool] = useState("");
-  const [age, setAge] = useState("");
-  const [state, setState] = useState("");
-  const [interests, setInterests] = useState("");
-  const [otherInterest, setOtherInterest] = useState("");
-  const [error, setError] = useState("");
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    setError("");
-
-    if (!validateForm()) {
-      return;
-    }
-
-    try {
-      const finalInterests = [
-        ...interests.filter((interest) => interest !== "Other"),
-        ...(interests.includes("Other") && otherInterest.trim()
-          ? [otherInterest.trim()]
-          : [])
-      ];
-      await setDoc(
-        doc(db, "users", user.uid),
-        {
-          name: name.trim(),
-          school: school.trim(),
-          age: Number(age),
-          state,
-          interests: finalInterests
-        },
-        {
-          merge: true
-        }
-      );
-
-      onSubmit();
-
-    } catch (error) {
-      console.error("Error saving user information:", error);
-      setError("Could not save your information. Please try again.");
-    }
-  }
-
-  return (
-    <div className="userinfo-form">
-
-      <h2>Create Your Profile</h2>
-
-      {error && (
-        <p className="auth-error">
-          {error}
-        </p>
-      )}
-
-      <form onSubmit={handleSubmit}>
-
-        <input
-          type="text"
-          placeholder="Full Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-
-        <input
-          type="text"
-          placeholder="School"
-          value={school}
-          onChange={(e) => setSchool(e.target.value)}
-          required
-        />
-
-        <input
-          type="number"
-          placeholder="Age"
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
-          required
-        />
-
-        <select
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-          required
-        >
-          <option value="">Select your state</option>
-
-          {states.map((stateName) => (
-            <option key={stateName} value={stateName}>
-              {stateName}
-            </option>
-          ))}
-        </select>
-
-        <label>What are you interested in?</label>
-
-        <div className="interest-options">
-          {interestOptions.map((interest) => (
-            <button
-              type="button"
-              key={interest}
-              className={
-                interests.includes(interest)
-                  ? "interest-option selected"
-                  : "interest-option"
-              }
-              onClick={() => toggleInterest(interest)}
-            >
-              {interest}
-            </button>
-          ))}
-        </div>
-
-        {interests.includes("Other") && (
-          <input
-            type="text"
-            placeholder="Tell us about another interest..."
-            value={otherInterest}
-            onChange={(e) => setOtherInterest(e.target.value)}
-          />
-        )}
-
-        <button type="submit">
-          Continue
-        </button>
-
-      </form>
-
-    </div>
-  );
-}
-*/
 
 import { useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import "./UserInfoForm.css";
+import CourseAutocomplete from "./CourseAutocomplete";
+
 
 const states = [
   "Alabama",
@@ -311,6 +89,8 @@ export default function UserInfoForm({ user, onSubmit }) {
   const [state, setState] = useState("");
   const [interests, setInterests] = useState([]);
   const [otherInterest, setOtherInterest] = useState("");
+  const [pastCourses, setPastCourses] = useState([]);
+  const [currentCourses, setCurrentCourses] = useState([]);
   const [error, setError] = useState("");
 
   function toggleInterest(interest) {
@@ -386,7 +166,9 @@ export default function UserInfoForm({ user, onSubmit }) {
           school: school.trim(),
           age: Number(age),
           state,
-          interests: finalInterests
+          interests: finalInterests,
+          pastCourses,
+          currentCourses
         },
         {
           merge: true
@@ -569,13 +351,60 @@ export default function UserInfoForm({ user, onSubmit }) {
           </div>
 
 
+
+
+
+          {/* PAST COURSES */}
+          <div className="form-section section-right">
+            <span className="question-number">06</span>
+
+            <div className="question-content">
+
+              <label>
+                What courses have you taken?
+              </label>
+
+              <p className="question-description">
+                Search for courses you have completed in previous years.
+              </p>
+
+              <CourseAutocomplete
+                selectedCourses={pastCourses}
+                onChange={setPastCourses}
+                placeholder="Search past courses..."
+              />
+
+            </div>
+          </div>
+
+          {/* CURRENT COURSES */}
+          <div className="form-section section-left">
+            <span className="question-number">07</span>
+
+            <div className="question-content">
+
+              <label>
+                What courses are you currently taking?
+              </label>
+
+              <p className="question-description">
+                Search for the courses you are taking this year.
+              </p>
+
+              <CourseAutocomplete
+                selectedCourses={currentCourses}
+                onChange={setCurrentCourses}
+                placeholder="Search current courses..."
+              />
+
+            </div>
+          </div>
           <button
             type="submit"
             className="continue-button"
           >
             Continue →
           </button>
-
         </form>
 
       </div>

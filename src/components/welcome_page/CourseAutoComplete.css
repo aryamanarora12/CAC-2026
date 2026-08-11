@@ -1,0 +1,274 @@
+
+.course-autocomplete {
+  width: 100%;
+  position: relative;
+}
+
+.course-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.course-input-wrapper input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   DROPDOWN
+========================================= */
+
+.course-suggestions {
+  position: absolute;
+
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+
+  background: white;
+
+  border: 1px solid #e5e4e7;
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  z-index: 100;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.10);
+
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+
+/* =========================================
+   COURSE RESULT
+========================================= */
+
+.course-suggestion {
+  width: 100%;
+
+  display: block;
+
+  padding: 12px 14px;
+
+  border: none;
+  border-bottom: 1px solid #eeeeee;
+
+  background: white;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.12s ease;
+}
+
+.course-suggestion:hover,
+.course-suggestion.highlighted {
+  background: #f6f4f8;
+}
+
+
+.course-suggestion.already-selected {
+  opacity: 0.55;
+  cursor: default;
+}
+
+
+/* =========================================
+   COURSE NAME
+========================================= */
+
+.course-result-main {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+}
+
+
+.course-name {
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #08060d;
+}
+
+
+.course-check {
+  font-size: 15px;
+}
+
+
+/* =========================================
+   COURSE METADATA
+========================================= */
+
+.course-meta {
+  display: flex;
+
+  gap: 8px;
+
+  margin-top: 4px;
+
+  font-size: 12px;
+
+  color: #777;
+}
+
+
+/* =========================================
+   NO RESULTS
+========================================= */
+
+.no-courses {
+  padding: 14px;
+
+  color: #777;
+
+  font-size: 14px;
+}
+
+.no-courses p {
+  margin: 0;
+}
+
+
+/* =========================================
+   CUSTOM COURSE
+========================================= */
+
+.custom-course-option {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 12px 14px;
+
+  border: none;
+
+  background: white;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  font-size: 14px;
+
+  color: #6b6375;
+}
+
+.custom-course-option:hover,
+.custom-course-option.highlighted {
+  background: #f6f4f8;
+}
+
+
+.custom-plus {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   SELECTED COURSE CHIPS
+========================================= */
+
+.selected-courses {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-top: 12px;
+}
+
+
+.course-chip {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 9px 10px 9px 12px;
+
+  background: #fafafa;
+
+  border: 1px solid #e5e4e7;
+
+  border-radius: 10px;
+}
+
+
+.course-chip-info {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+
+.course-chip-name {
+  font-size: 13px;
+
+  font-weight: 600;
+
+  color: #08060d;
+}
+
+
+.course-chip-type {
+  font-size: 11px;
+
+  color: #777;
+}
+
+
+/* =========================================
+   REMOVE BUTTON
+========================================= */
+
+.remove-course {
+  width: 22px;
+  height: 22px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  background: transparent;
+
+  color: #777;
+
+  font-size: 18px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  border-radius: 50%;
+}
+
+
+.remove-course:hover {
+  background: #eeeeee;
+  color: #000;
+}
+
