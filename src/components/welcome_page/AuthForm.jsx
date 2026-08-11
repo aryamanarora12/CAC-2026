@@ -1,13 +1,7 @@
 import { useState } from "react";
 import "./AuthForm.css";
-
 import { auth, googleProvider } from "../../firebase";
-
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signInWithPopup
-} from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 export default function AuthForm({ mode = "login", onSuccess }) {
   const [email, setEmail] = useState("");
@@ -15,35 +9,21 @@ export default function AuthForm({ mode = "login", onSuccess }) {
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
   const isSignup = mode === "signup";
 
   // ==========================================
   // EMAIL LOGIN
   // ==========================================
-
   async function handleLogin(e) {
     e.preventDefault();
-
     setError("");
     setLoading(true);
-
     try {
-      const userCred = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      // Send Firebase user back to Welcome.jsx
+      const userCred = await signInWithEmailAndPassword(auth, email, password);
       onSuccess(userCred.user);
-
     } catch (error) {
       console.error("Login error:", error);
-
-      setError(
-        "Login failed. Please check your email and password."
-      );
+      setError("Login failed. Please check your email and password.");
     } finally {
       setLoading(false);
     }
@@ -52,46 +32,23 @@ export default function AuthForm({ mode = "login", onSuccess }) {
   // ==========================================
   // EMAIL SIGNUP
   // ==========================================
-
   async function handleSignup(e) {
     e.preventDefault();
-
     setError("");
     setLoading(true);
-
     try {
-      const userCred =
-        await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-
-      // Send Firebase user + username back
-      onSuccess({
-        user: userCred.user,
-        username: username
-      });
-
+      const userCred = await createUserWithEmailAndPassword(auth, email, password);
+      onSuccess({ user: userCred.user, username: username });
     } catch (error) {
       console.error("Signup error:", error);
-
       if (error.code === "auth/email-already-in-use") {
-        setError(
-          "An account with this email already exists."
-        );
+        setError("An account with this email already exists.");
       } else if (error.code === "auth/weak-password") {
-        setError(
-          "Password must be at least 6 characters."
-        );
+        setError("Password must be at least 6 characters.");
       } else if (error.code === "auth/invalid-email") {
-        setError(
-          "Please enter a valid email address."
-        );
+        setError("Please enter a valid email address.");
       } else {
-        setError(
-          "Account creation failed. Please try again."
-        );
+        setError("Account creation failed. Please try again.");
       }
     } finally {
       setLoading(false);
@@ -101,25 +58,17 @@ export default function AuthForm({ mode = "login", onSuccess }) {
   // ==========================================
   // GOOGLE LOGIN / SIGNUP
   // ==========================================
-
-  async function handleGoogle() {
+  async function handleGoogle(e) {
+    // Prevent any unintended form submission
+    if (e) e.preventDefault(); 
     setError("");
     setLoading(true);
-
     try {
-      const result = await signInWithPopup(
-        auth,
-        googleProvider
-      );
-
+      const result = await signInWithPopup(auth, googleProvider);
       onSuccess(result.user);
-
     } catch (error) {
       console.error("Google authentication error:", error);
-
-      setError(
-        "Google authentication failed. Please try again."
-      );
+      setError("Google authentication failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -128,16 +77,11 @@ export default function AuthForm({ mode = "login", onSuccess }) {
   // ==========================================
   // RENDER
   // ==========================================
-
   return (
-    <div className="auth-form">
-
-      <h2>
-        {isSignup
-          ? "Create Your Account"
-          : "Welcome Back"}
-      </h2>
-
+    // Changed wrapper to a form tag for accessibility and native handling
+    <form className="auth-form" onSubmit={isSignup ? handleSignup : handleLogin}>
+      <h2>{isSignup ? "Create Your Account" : "Welcome Back"}</h2>
+      
       {isSignup && (
         <input
           type="text"
@@ -147,7 +91,7 @@ export default function AuthForm({ mode = "login", onSuccess }) {
           required
         />
       )}
-
+      
       <input
         type="email"
         placeholder="Email"
@@ -155,7 +99,7 @@ export default function AuthForm({ mode = "login", onSuccess }) {
         onChange={(e) => setEmail(e.target.value)}
         required
       />
-
+      
       <input
         type="password"
         placeholder="Password"
@@ -163,32 +107,23 @@ export default function AuthForm({ mode = "login", onSuccess }) {
         onChange={(e) => setPassword(e.target.value)}
         required
       />
-
-      {error && (
-        <p className="auth-error">
-          {error}
-        </p>
-      )}
-
-      <button
-        onClick={isSignup ? handleSignup : handleLogin}
-        disabled={loading}
-      >
-        {loading
-          ? "Please wait..."
-          : isSignup
-            ? "Create Account"
-            : "Login"}
+      
+      {error && <p className="auth-error">{error}</p>}
+      
+      {/* type="submit" allows Enter key to submit the form */}
+      <button type="submit" disabled={loading}>
+        {loading ? "Please wait..." : isSignup ? "Create Account" : "Login"}
       </button>
-
+      
+      {/* CRITICAL FIX: type="button" prevents form submission */}
       <button
+        type="button" 
         className="google-btn"
         onClick={handleGoogle}
         disabled={loading}
       >
         Continue with Google
       </button>
-
-    </div>
+    </form>
   );
 }

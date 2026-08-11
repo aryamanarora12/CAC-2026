@@ -35,8 +35,9 @@ export default function CreateAccount({ onComplete }) {
     <div className="create-account">
 
       {step === "auth" && (
-        <AuthForm onSuccess={handleAuthSuccess} />
+        <AuthForm mode="signup" onSuccess={handleAuthSuccess} />
       )}
+
 
       {step === "userinfo" && (
         <UserInfoForm
