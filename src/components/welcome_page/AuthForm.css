@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+:root {
+  --accent: #4f46e5;  /* This changes your main button color (e.g., Indigo Blue) */
+  --border: #ccc;     /* This fixes your input borders */
+  --text-h: #111827;  /* This fixes your heading color */
+}
+
+/* ... the rest of your CSS stays exactly the same ... */
+
 .auth-form {
   font-family: "Inter", sans-serif;
   max-width: 400px;
