@@ -1,0 +1,214 @@
+/* Home.css */
+@import url('https://googleapis.com');
+
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --card-bg: #ffffff;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
+
+.home-page {
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--bg-gradient);
+  box-sizing: border-box;
+}
+
+/* Hero Section */
+.hero-section {
+  width: 100%;
+  max-width: 1200px;
+  padding: 100px 24px 60px 24px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-greeting {
+  display: inline-block;
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+  margin: 0 0 24px 0;
+}
+
+.hero-section h1 span.gradient-text {
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-section .mission-tag {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--primary);
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.hero-section h2 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0 auto;
+  max-width: 680px;
+}
+
+/* Features Section */
+.features-section {
+  width: 100%;
+  max-width: 1200px;
+  padding: 40px 24px 100px 24px;
+  box-sizing: border-box;
+}
+
+.features-section h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 40px;
+  text-align: center;
+  letter-spacing: -0.01em;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 👈 This forces exactly 2 equal columns side-by-side */
+  gap: 24px;
+  width: 100%;
+  max-width: 900px; /* Optional: narrows the grid width slightly for perfect 2x2 symmetry */
+  margin: 0 auto;  /* Centers the 2x2 grid horizontally on large displays */
+}
+
+/* Feature Card */
+.feature-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid #e2e8f0;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: #bfdbfe;
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  background: #eff6ff;
+  color: var(--primary);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.feature-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 0 0 12px 0;
+}
+
+.feature-card p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin: 0 0 24px 0;
+  flex-grow: 1;
+}
+
+.card-link {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.2s ease;
+}
+
+.card-link:hover {
+  color: var(--primary-hover);
+}
+
+.Logout {
+  align-items: center;
+  /* Change from text to block layout */
+  display: inline-block;
+  text-decoration: none;
+  
+  /* Sizing and spacing */
+  padding: 10px 30px;
+  border-radius: 5px;
+  
+  /* Colors */
+  background-color: #ff0000;
+  color: #ffffff;
+  
+  
+  /* Interactive elements */
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  justify-content: center; /* Centers the button horizontally */
+  margin-top: 20px;
+}
+
+/* Add a hover effect */
+.Logout:hover {
+  background-color: #bd6064;
+  color: #ffffff; 
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustments */
+

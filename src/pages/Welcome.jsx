@@ -27,7 +27,7 @@ export default function Welcome() {
           <div className="welcome-container">
 
             <div className="welcome-header">
-              <h1>Welcome</h1>
+              <h1>CAC 2026</h1>
 
               <p>
                 Log in to continue to your profile.

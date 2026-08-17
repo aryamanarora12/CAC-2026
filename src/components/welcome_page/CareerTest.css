@@ -1,127 +1,319 @@
+@import url('https://googleapis.com');
 
-.career-test {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 30px;
+/* Global variables for consistent styling */
+:root {
+  --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 12px -4px rgba(0, 0, 0, 0.03);
+  --accent: #437bcf;
+  --accent-hover: #3669b3;
+  --accent-bg: #f0f5ff;
+  --border: #e2e8f0;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+}
+
+.career-test-container { 
+  font-family: "Inter", sans-serif; 
+  color: var(--text-main);
+  max-width: 640px; /* Reduced for better reading width */
+  margin: 60px auto; 
+  padding: 40px; 
+  background: white; 
+  border-radius: 16px; /* Modern, softer corners */
+  box-shadow: var(--shadow); 
+  text-align: center; 
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  width: 100%; 
+  box-sizing: border-box;
+}
+/* Container for the grid layout matching the theme spacing */
+.career-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  width: 100%;
+  margin-top: 24px;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+/* Career result card using your exact theme definitions */
+.career-result {
   background: white;
+  border: 1px solid var(--border);
   border-radius: 12px;
+  padding: 24px;
   box-shadow: var(--shadow);
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left; /* Toggled to left-align for easier reading of descriptions */
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.career-test h1 {
-  font-size: 42px;
-  margin: 10px 0 25px;
+/* Smooth lift interactive effect */
+.career-result:hover {
+  transform: translateY(-4px);
 }
 
-.career-test h2 {
-  margin-bottom: 20px;
+/* Job Title using premium Inter spacing */
+.career-result h4 {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  margin: 0 0 8px 0;
 }
 
-.career-test h3 {
-  margin: 20px 0;
-  line-height: 1.5;
+/* Wrapper for the category badge */
+.career-result p:has(strong) {
+  margin: 0 0 16px 0;
 }
 
+/* Category Badge utilizing your theme's accent background colors */
+.career-result strong {
+  background-color: var(--accent-bg);
+  color: var(--accent);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  display: inline-block;
+}
 
-.career-test button {
+/* Description using muted text styling and consistent line-height */
+.career-result p:not(:has(strong)) {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0 0 24px 0;
+  flex-grow: 1; /* Pushes the CTA button neatly to the card bottom */
+}
+
+/* Action Button matching theme's secondary results button pattern */
+.career-result button {
   width: 100%;
   padding: 12px;
-  margin: 8px 0;
-  border-radius: 8px;
   border: none;
-  background: var(--accent);
-  color: white;
+  border-radius: 10px;
+  background: var(--accent-bg);
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 16px;
-  transition: opacity 0.2s, transform 0.1s;
+  transition: background 0.2s, transform 0.1s;
 }
 
-.career-test button:hover {
-  opacity: 0.9;
+/* Button interactive states */
+.career-result button:hover {
+  background: #e0ecff; /* Theme-defined hover match */
 }
 
-.career-test button:active {
+.career-result button:active {
   transform: scale(0.98);
 }
 
-.career-test button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+/* Headings Polish */
+.career-test-container h1, 
+.career-test h1 { 
+  font-size: 32px; /* Balanced desktop header size */
+  font-weight: 700;
+  letter-spacing: -0.02em; /* Tighter letter spacing for Inter looks premium */
+  color: var(--text-main);
+  margin: 0 0 16px 0; 
 }
 
+.career-test-container h3,
+.career-test h3 { 
+  font-size: 18px; 
+  font-weight: 400; /* Fixed: Changed from 1000 to elegant regular weight */
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0 0 32px 0; 
+}
 
-.career-test select {
-  width: 100%;
-  padding: 12px;
-  margin: 12px 0;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: white;
+.career-test h2 { 
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px; 
+}
+
+/* Base Buttons */
+.career-test button { 
+  width: 100%; 
+  padding: 14px; 
+  margin: 8px 0; 
+  border-radius: 10px; 
+  border: none; 
+  background: var(--accent); 
+  color: white; 
+  cursor: pointer; 
+  font-size: 16px; 
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s; 
+}
+
+.career-test button:hover { 
+  background: var(--accent-hover); /* Sophisticated hover instead of opacity */
+}
+
+.career-test button:active { 
+  transform: scale(0.99); 
+}
+
+.career-test button:disabled { 
+  background: #cbd5e1;
+  color: #94a3b8;
+  cursor: not-allowed; 
+}
+
+/* Select Elements */
+.career-test select { 
+  width: 100%; 
+  padding: 14px; 
+  margin: 12px 0; 
+  border-radius: 10px; 
+  border: 1px solid var(--border); 
+  background: #f8fafc;
+  color: var(--text-main);
+  font-size: 16px; 
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.career-test select:focus {
+  border-color: var(--accent);
+}
+
+.test p { 
+  color: var(--text-muted); 
+  margin-bottom: 25px; 
   font-size: 16px;
+  line-height: 1.6;
 }
 
-
-.test p {
-  color: #666;
-  margin-bottom: 25px;
+.answer-buttons { 
+  margin-top: 24px; 
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
-.answer-buttons {
-  margin-top: 20px;
+.loading { 
+  padding: 40px 10px; 
 }
 
-.loading {
-  padding: 40px 10px;
+.loading p { 
+  color: var(--text-muted); 
 }
 
-.loading p {
-  color: #666;
+.test button{
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 12px;
+  background: #437bcf;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+/* Results Formatting */
+.results { 
+  text-align: center; 
+  width: 100%;
 }
 
-
-.results {
-  text-align: center;
+.results h1 { 
+  font-size: 40px; 
+  letter-spacing: -0.03em; /* Dropped the 6px separation for a cleaner look */
+  color: var(--accent);
 }
 
-.results h1 {
-  font-size: 48px;
-  letter-spacing: 6px;
+.riasec-scores { 
+  margin: 24px 0; 
+  padding: 24px; 
+  background: var(--accent-bg); 
+  border-radius: 12px; 
+  text-align: left; 
 }
 
-
-.riasec-scores {
-  margin: 20px 0;
-  padding: 15px;
-  background: var(--accent-bg);
-  border-radius: 10px;
-  text-align: left;
+.riasec-scores p { 
+  margin: 12px 0; 
+  color: var(--text-main);
+  font-weight: 500;
 }
 
-.riasec-scores p {
-  margin: 10px 0;
+.results button { 
+  background: var(--accent-bg); 
+  color: var(--accent);
+  font-weight: 600;
 }
 
-
-.results button {
-  background: var(--accent-bg);
-  color: black;
+.results button:hover { 
+  background: #e0ecff;
 }
 
-.results button:hover {
-  opacity: 0.8;
+/* Navigation / Menu Styling */
+.menu { 
+  font-family: "Inter", sans-serif; 
+  padding: 0; 
+  border: none;
+  width: 100%; /* Spans full container width nicely */
+  display: flex; 
+  flex-direction: column; 
+  gap: 12px;
 }
 
-
-@media (max-width: 650px) {
-  .career-test {
-    margin: 20px;
-    padding: 20px;
-  }
-
-  .career-test h1 {
-    font-size: 36px;
-  }
+.menu button { 
+  width: 100%; 
+  margin-top: 0; 
+  padding: 14px; 
+  border: none; 
+  border-radius: 10px; 
+  background: var(--accent); 
+  color: white; 
+  font-size: 16px; 
+  font-weight: 600; 
+  cursor: pointer; 
+  transition: background 0.2s, transform 0.1s; 
 }
 
+.menu button:hover {
+  background: var(--accent-hover);
+}
+
+.manual-select button{
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 12px;
+  background: #437bcf;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+/* Responsive Breakpoints */
+@media (max-width: 650px) { 
+  .career-test-container { 
+    margin: 20px auto; 
+    padding: 24px; 
+    width: calc(100% - 32px);
+  } 
+  .career-test-container h1,
+  .career-test h1 { 
+    font-size: 26px; 
+  } 
+}
 

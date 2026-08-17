@@ -111,7 +111,7 @@ export default function UserInfoForm({ user, onSubmit }) {
       return false;
     }
 
-    if (age < 13 || age > 100) {
+    if (age < 10 || age > 100) {
       setError("Please enter a valid age.");
       return false;
     }
@@ -170,6 +170,7 @@ export default function UserInfoForm({ user, onSubmit }) {
           pastCourses,
           currentCourses
         },
+        
         {
           merge: true
         }
@@ -208,7 +209,7 @@ export default function UserInfoForm({ user, onSubmit }) {
         <form onSubmit={handleSubmit}>
 
           {/* NAME */}
-          <div className="form-section section-left">
+          <div className="form-section section-right">
             <span className="question-number">01</span>
 
             <div className="question-content">
@@ -248,11 +249,11 @@ export default function UserInfoForm({ user, onSubmit }) {
                 required
               />
             </div>
-          </div>
+          </div> 
 
 
           {/* AGE */}
-          <div className="form-section section-left">
+          <div className="form-section section-right">
             <span className="question-number">03</span>
 
             <div className="question-content">
@@ -304,7 +305,7 @@ export default function UserInfoForm({ user, onSubmit }) {
 
 
           {/* INTERESTS */}
-          <div className="form-section section-left interests-section">
+          <div className="form-section section-right interests-section">
             <span className="question-number">05</span>
 
             <div className="question-content">
@@ -378,7 +379,7 @@ export default function UserInfoForm({ user, onSubmit }) {
           </div>
 
           {/* CURRENT COURSES */}
-          <div className="form-section section-left">
+          <div className="form-section section-right">
             <span className="question-number">07</span>
 
             <div className="question-content">

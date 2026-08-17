@@ -319,18 +319,20 @@ export default function CareerTest({ user, onComplete }) {
 
   return (
     <div className="career-test-container">
-
+      <h1>Ready to find a career that suits you?</h1>
+      <h3>Take a quick test to find a career that suits you best or select one of your liking.</h3>
+      
       {/* MENU */}
       {mode === "menu" && (
         <div className="menu">
-          <h2>Select a career that you are interested in</h2>
+          
 
           <button onClick={() => setMode("manual")}>
             Select a Career Manually
           </button>
 
           <button onClick={startTest}>
-            Take the Career Test
+            Take a Career Test
           </button>
         </div>
       )}
@@ -465,7 +467,7 @@ export default function CareerTest({ user, onComplete }) {
           <h3>Your Top Career Matches</h3>
 
           <p>
-            Select a career to save it to your profile.
+            Select a career to add to your profile.
           </p>
 
           {recommendedCareers.map((career) => (
