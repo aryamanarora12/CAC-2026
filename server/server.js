@@ -131,5 +131,5 @@ app.post("/search-opportunities", async (req, res) => {
 const PORT = 3001;
 
 app.listen(PORT, () => {
-    console.log(`Opportunity backend running on port ${PORT}`);
+    console.log(`Website backend running on port ${PORT}`);
 });
