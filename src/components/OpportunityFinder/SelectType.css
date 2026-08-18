@@ -1,8 +1,14 @@
 .select-type {
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
   width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--bg-gradient);
+  box-sizing: border-box;
 }
 
 .select-type-header {
@@ -47,7 +53,7 @@
 .opportunity-type-card:hover {
   transform: translateY(-4px);
 
-  border-color: #aa3bff;
+  border-color: #2563eb;
 
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
@@ -72,7 +78,7 @@
   bottom: 20px;
 
   font-size: 24px;
-  color: #aa3bff;
+  color: #2563eb;
 }
 
 @media (max-width: 700px) {

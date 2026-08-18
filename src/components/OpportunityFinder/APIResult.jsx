@@ -1,3 +1,6 @@
+import "./APIResult.css";
+
+
 export default function APIResult({
   opportunities,
   opportunityType,
@@ -14,17 +17,14 @@ export default function APIResult({
   return (
     <div className="api-results">
 
-      <button
-        className="results-back-button"
-        onClick={onBack}
-      >
-        ← Back
-      </button>
 
       <div className="results-header">
 
         <h1>
-          {opportunityType} Opportunities
+          {opportunityType
+            ? opportunityType.charAt(0).toUpperCase() + opportunityType.slice(1)
+            : ""}{" "}
+          Opportunities
         </h1>
 
         <p>
@@ -112,7 +112,12 @@ export default function APIResult({
         </div>
 
       )}
-
+      <button
+        className="results-back-button"
+        onClick={onBack}
+      >
+        ← Back
+      </button>
     </div>
   );
 }
