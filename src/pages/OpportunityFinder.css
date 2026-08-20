@@ -1,19 +1,38 @@
-
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --card-bg: #ffffff;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
 
 .opportunity-finder {
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
   width: 100%;
-  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+
+  background: transparent;
 }
+
+
+/* =========================
+   LOADING
+========================= */
 
 .opportunity-loading {
   min-height: 500px;
 
   display: flex;
-
   flex-direction: column;
-
   justify-content: center;
-
   align-items: center;
 
   text-align: center;
@@ -27,21 +46,29 @@
   color: #6b6375;
 }
 
+.OpportunityFinder-page {
+  min-height: 100vh;
+  width: 100%;
+  background: var(--bg-gradient);
+  box-sizing: border-box;
+}
+
+/* =========================
+   LOADING SPINNER
+========================= */
+
 .loading-spinner {
   width: 35px;
   height: 35px;
 
   border: 4px solid #e5e4e7;
-
   border-top-color: #aa3bff;
-
   border-radius: 50%;
 
   animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
-
   from {
     transform: rotate(0deg);
   }
@@ -49,53 +76,233 @@
   to {
     transform: rotate(360deg);
   }
-
 }
 
+
+/* =========================
+   ERROR
+========================= */
+
 .opportunity-error {
-  max-width: 700px;
-
+  width: min(700px, 90%);
   margin: 20px auto;
-
   padding: 15px;
 
   border-radius: 10px;
 
   background: #fff0f0;
-
   color: #b42318;
 
   text-align: center;
 }
 
+
+/* =========================
+   SELECTED OPPORTUNITY
+========================= */
+
 .selected-opportunity {
+  width: 100%;
   max-width: 900px;
 
   margin: 0 auto;
-
   padding: 40px 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+  box-sizing: border-box;
 }
+
+
+/* Back button */
+
+.selected-opportunity .results-back-button {
+  align-self: flex-start;
+  margin-bottom: 25px;
+}
+
+
+/* Title */
 
 .selected-opportunity h1 {
   margin-bottom: 25px;
 }
 
+
+/* =========================
+   OPPORTUNITY CARD
+========================= */
+
 .selected-opportunity-card {
+  width: 100%;
+  max-width: 700px;
+
   padding: 30px;
 
   border: 1px solid #e5e4e7;
-
   border-radius: 18px;
 
   background: white;
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
 }
+
 
 .selected-opportunity-card h2 {
   margin-bottom: 8px;
 }
 
+
 .selected-opportunity-card h3 {
   margin-bottom: 20px;
-
   color: #6b6375;
+}
+
+
+.selected-opportunity-card p {
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+
+/* =========================
+   OPPORTUNITY LINKS
+========================= */
+
+.opportunity-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 25px;
+}
+
+
+/* Buttons */
+
+.learn-more-button,
+.source-button {
+  padding: 11px 18px;
+
+  border-radius: 9px;
+
+  text-decoration: none;
+
+  font-weight: 600;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.learn-more-button {
+  background: #aa3bff;
+  color: white;
+}
+
+
+.source-button {
+  background: #eeeeee;
+  color: #333333;
+}
+
+
+.learn-more-button:hover,
+.source-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+}
+
+
+.saved-opportunities {
+  padding: 30px;
+}
+
+.opportunity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.opportunity-card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.opportunity-card h3 {
+  margin-top: 0;
+}
+
+.organization {
+  font-weight: 600;
+}
+
+.description {
+  line-height: 1.5;
+}
+
+.opportunity-card a {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.OpportunityHistory button{
+
+  color: #fffefe;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  background: #007bff;
+
+  box-sizing: border-box;
+  margin-bottom: 50px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  .selected-opportunity {
+    padding: 30px 15px;
+  }
+
+  .selected-opportunity-card {
+    padding: 25px 20px;
+  }
+
+  .opportunity-links {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .learn-more-button,
+  .source-button {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
 }

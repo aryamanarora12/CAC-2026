@@ -66,18 +66,24 @@
   text-align: center;
 }
 .navbar {
-  margin: 0;
-  padding: 50;
+  margin: 20px auto 0;
   width: 90%;
-  font-family: "Inter", sans-serif;
+  max-width: 1200px;
+  padding: 15px 12px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  font-family: "Inter", sans-serif;
+
   background-color: #ffffff;
-  padding: 15px 12px;
+
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-  border-bottom: 1px solid #eee;
+  border: 1px solid #eee;
   border-radius: 12px;
+
+  box-sizing: border-box;
 }
 
 .navbar-brand span {

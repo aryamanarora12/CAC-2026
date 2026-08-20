@@ -93,7 +93,7 @@ export default function OpportunityFinderComponent() {
 
 
             console.log(
-                "🔥 OPPORTUNITIES RECEIVED BY FRONTEND:",
+                " OPPORTUNITIES RECEIVED BY FRONTEND:",
                 results
             );
 
@@ -303,7 +303,39 @@ export default function OpportunityFinderComponent() {
                                     <p>
                                         {selectedOpportunity.description}
                                     </p>
+                                    <div className="opportunity-links">
 
+                                        {selectedOpportunity.opportunityUrl &&
+                                            selectedOpportunity.opportunityUrl !== "Not specified" && (
+
+                                                <a
+                                                    href={selectedOpportunity.opportunityUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="learn-more-button"
+                                                >
+                                                    View Opportunity →
+                                                </a>
+
+                                            )
+                                        }
+
+                                        {selectedOpportunity.sourceUrl &&
+                                            selectedOpportunity.sourceUrl !== "Not specified" && (
+
+                                                <a
+                                                    href={selectedOpportunity.sourceUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="source-button"
+                                                >
+                                                    View Source
+                                                </a>
+
+                                            )
+                                        }
+
+                                    </div>
                                 </div>
 
                             )}

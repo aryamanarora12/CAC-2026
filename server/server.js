@@ -41,14 +41,14 @@ app.post("/search-opportunities", async (req, res) => {
         const searchResults = searchResponse.results.map((result, index) => ({
             id: index + 1,
             title: result.title,
-            url: result.url,
+            tavilyUrl: result.url,
             content: result.content
         }));
         console.log("Search results received:", searchResponse.results.length);
         console.log("Number of results being analyzed:", searchResults.length);
         console.log("Sending results to Gemini...");
 
-        const aiResponse = await ai.models.generateContent({
+        /*const aiResponse = await ai.models.generateContent({
             model: "gemini-3.6-flash",
             contents: `
             You are an opportunity-matching assistant for high school students.
@@ -95,8 +95,175 @@ app.post("/search-opportunities", async (req, res) => {
             5. A single webpage may contain many different opportunities. Extract them individually.
             6. Preserve the source URL for each opportunity.
             7. Only return opportunities relevant to the requested opportunity type.
-            8. Consider the student's interests, courses, major, age, and location when determining matchScore.
+            8. Consider the student's interests, past courses taken, current ocurses that the student is taking, major, age, and location when determining matchScore.
             `,
+            config: {
+                responseMimeType: "application/json"
+            }
+        });*/
+
+
+        const aiResponse = await ai.models.generateContent({
+            model: "gemini-3.5-flash-lite",
+            contents: `
+            You are an intelligent opportunity-matching assistant for high school students.
+
+            Your goal is NOT simply to determine whether an opportunity is related to the student's interests.
+
+            Your goal is to determine how strongly each opportunity fits THIS SPECIFIC STUDENT based on their academic background, interests, intended major, age, location, and requested opportunity type.
+
+            STUDENT'S REQUEST:
+
+            Opportunity type:
+            ${opportunityType}
+
+            STUDENT PROFILE:
+            ${JSON.stringify({
+                state: userProfile.state,
+                interests: userProfile.interests,
+                school: userProfile.school,
+                currentCourses: userProfile.currentCourses,
+                pastCourses: userProfile.pastCourses,
+                major: userProfile.major,
+                age: userProfile.age
+            }, null, 2)}
+
+                WEB SEARCH RESULTS:
+                These are source webpages. They may contain multiple individual opportunities.
+
+                ${JSON.stringify(searchResults, null, 2)}
+
+
+                MATCHING PROCESS:
+
+                For every opportunity you identify, evaluate it against the student's profile.
+
+                Consider the following factors:
+
+                1. ELIGIBILITY
+                - Does the student's age satisfy the stated age requirement?
+                - Does the student's school/grade level satisfy the stated requirement?
+                - Does the student's location satisfy geographic requirements?
+                - Does the student satisfy any stated academic or prerequisite requirements?
+                - If an important requirement is explicitly not satisfied, the opportunity should receive a low match score or be excluded.
+
+                2. ACADEMIC ALIGNMENT
+                - Compare the opportunity's subject matter with the student's current courses.
+                - Consider both current and past courses.
+                - Current courses demonstrate what the student is studying now.
+                - Past courses demonstrate previous preparation.
+
+                3. INTEREST ALIGNMENT
+                - Compare the opportunity with the student's stated interests.
+                - Strongly prioritize opportunities that directly involve those interests.
+
+                4. CAREER / MAJOR ALIGNMENT
+                - Compare the opportunity with the student's intended major.
+                - Give additional weight when the opportunity provides experience directly related to that major or career path.
+
+                5. OPPORTUNITY TYPE
+                - The opportunity must actually match the requested opportunity type.
+                - For example, if the student requests internships, do not return scholarships, competitions, or general programs unless the source clearly indicates that it is also an internship.
+
+                6. OVERALL PERSONAL RELEVANCE
+                - Determine whether this opportunity would genuinely make sense for THIS student.
+                - Avoid giving a high score simply because the opportunity is broadly related to a student's interests.
+
+
+                MATCH SCORE:
+
+                Calculate a matchScore from 0 to 100.
+
+                Use this general framework:
+
+                90-100:
+                Exceptional match. The opportunity strongly aligns with the student's eligibility, interests, academics, and intended major.
+
+                75-89:
+                Strong match. The opportunity fits the student well but may have one weaker area or less direct alignment.
+
+                60-74:
+                Moderate match. The opportunity is relevant but has limited personalization or alignment.
+
+                40-59:
+                Weak match. The opportunity has some relevance but is not particularly suited to this student.
+
+                0-39:
+                Poor match. The opportunity is mostly unrelated, has significant eligibility conflicts, or does not fit the requested opportunity type.
+
+                IMPORTANT:
+                Do NOT inflate scores simply because an opportunity mentions the student's general field of interest.
+
+
+                WHY IT MATCHES:
+
+                For each opportunity, explain WHY it matches this specific student.
+
+                The explanation should:
+                - Mention specific information from the student's profile.
+                - Connect that information directly to the opportunity.
+                - Prefer multiple relevant profile factors when supported.
+                - Never invent facts about the student or opportunity.
+
+                GOOD EXAMPLE:
+
+                "The student is currently taking AP Physics 1 and intends to study Systems Engineering. Because this program focuses on engineering design, it directly connects the student's current physics coursework with their intended field of study."
+
+                BAD EXAMPLE:
+
+                "This is a great opportunity for the student because they like engineering."
+
+
+                EXTRACTION RULES:
+
+                1. Do not invent opportunities.
+                2. Do not invent deadlines, organizations, locations, requirements, or eligibility information.
+                3. Only use information contained in the supplied search results.
+                4. If information is unavailable, use "Not specified".
+                5. A single webpage may contain multiple individual opportunities. Extract them individually.
+                6. Preserve the Tavily source URL as sourceUrl.
+                7. Extract the actual official opportunity/application URL as opportunityUrl whenever it is explicitly available in the supplied webpage content.
+                8. Never invent an opportunityUrl.
+                9. Only return opportunities relevant to the requested opportunity type.
+                10. Do not assume that an opportunity is available to the student if eligibility is not stated.
+                11. Do not claim that the student qualifies unless the source provides enough information to support that conclusion.
+
+
+                FOR EACH OPPORTUNITY RETURN:
+
+                - title
+                - organization
+                - location
+                - deadline
+                - description
+                -opportunityUrl
+                - sourceUrl
+                - matchScore
+                - whyItMatches
+
+                URL RULES:
+
+                There are TWO different URLs:
+
+                1. sourceUrl
+                - This is the Tavily webpage where you found the information.
+                - Use the provided "tavilyUrl" for this field.
+
+                2. opportunityUrl
+                - This should be the actual official webpage for the specific opportunity.
+                - Prefer the official organization, university, company, or program website.
+                - If the Tavily page's content contains a direct link to the actual opportunity, application page, or official program page, extract that URL and use it.
+                - Do NOT automatically use the Tavily source URL as opportunityUrl.
+                - Do NOT invent or guess URLs.
+                - Do NOT modify a URL to create a URL that was not present in the supplied search results.
+                - If an actual opportunity URL cannot be confidently identified from the supplied information, use "Not specified".
+
+                The opportunityUrl is the link that should be shown to the student when they click "Learn More".
+
+                The sourceUrl is only for tracking where the information came from.
+
+                Return ONLY valid JSON.
+                `,
             config: {
                 responseMimeType: "application/json"
             }
@@ -116,7 +283,7 @@ app.post("/search-opportunities", async (req, res) => {
         res.json({
             opportunities: parsedAI
         });
-        
+
     } catch (error) {
         console.error("Search error:", error);
 

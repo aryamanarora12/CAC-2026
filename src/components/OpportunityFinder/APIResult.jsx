@@ -102,7 +102,7 @@ export default function APIResult({
                   onSelectOpportunity(opportunity)
                 }
               >
-                Select Opportunity
+                Confirm Opportunity
               </button>
 
             </div>

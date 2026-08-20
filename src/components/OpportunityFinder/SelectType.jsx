@@ -25,7 +25,7 @@ const opportunityTypes = [
     {
         id: "training",
         title: "Training",
-        description: "Discover programs, and trainigns to help oyu develop new skills"
+        description: "Discover programs, and trainigns to help you develop new skills"
     }
     
 ];
