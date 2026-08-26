@@ -60,7 +60,7 @@ function Home() {
               <div className="feature-icon"><Briefcase size={24} /></div>
             </div>
             <h3>Opportunity Finder</h3>
-            <p>Discover opportunities that help improve your resume.</p>
+            <p>Discover opportunities that help you add to your resume.</p>
             <NavLink to="/opportunities" className="card-link">Search Openings →</NavLink>
           </div>
 

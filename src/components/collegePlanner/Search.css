@@ -1,0 +1,191 @@
+/* =====================================================
+   COLLEGE SEARCH LOADING PAGE
+   ===================================================== */
+
+.college-search-loading {
+    min-height: 70vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+
+    background-color: #ffffff;
+
+    font-family: "Inter", sans-serif;
+}
+
+
+/* =====================================================
+   LOADING CARD
+   ===================================================== */
+
+.college-search-loading-card {
+    width: 100%;
+    max-width: 500px;
+
+    text-align: center;
+
+    padding: 50px 40px;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.08),
+        0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =====================================================
+   SPINNER
+   ===================================================== */
+
+.college-search-spinner {
+    width: 50px;
+    height: 50px;
+
+    margin: 0 auto 25px;
+
+    border: 5px solid #e5e7eb;
+
+    border-top: 5px solid #437bcf;
+
+    border-radius: 50%;
+
+    animation: collegeSearchSpin 0.9s linear infinite;
+}
+
+
+@keyframes collegeSearchSpin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* =====================================================
+   LOADING TITLE
+   ===================================================== */
+
+.college-search-loading-card h2 {
+
+    margin: 0 0 12px;
+
+    font-size: 26px;
+
+    font-weight: 700;
+
+    color: #1f2937;
+
+}
+
+
+/* =====================================================
+   LOADING DESCRIPTION
+   ===================================================== */
+
+.college-search-loading-card p {
+
+    margin: 0 auto;
+
+    max-width: 400px;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+
+    color: #6b7280;
+
+}
+
+
+/* =====================================================
+   ERROR
+   ===================================================== */
+
+.college-search-error {
+
+    min-height: 70vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 40px 20px;
+
+    font-family: "Inter", sans-serif;
+
+}
+
+
+.college-search-error h2 {
+
+    margin-bottom: 10px;
+
+    font-size: 26px;
+
+    color: #1f2937;
+
+}
+
+
+.college-search-error p {
+
+    max-width: 500px;
+
+    line-height: 1.6;
+
+    color: #6b7280;
+
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 600px) {
+
+    .college-search-loading {
+        padding: 25px 15px;
+    }
+
+
+    .college-search-loading-card {
+
+        padding: 40px 25px;
+
+        border-radius: 16px;
+
+    }
+
+
+    .college-search-loading-card h2 {
+
+        font-size: 22px;
+
+    }
+
+
+    .college-search-loading-card p {
+
+        font-size: 14px;
+
+    }
+
+}

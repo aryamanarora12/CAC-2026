@@ -293,7 +293,358 @@ app.post("/search-opportunities", async (req, res) => {
     }
 });
 
+/* =====================================================
+   COLLEGE SEARCH
+   ===================================================== */
 
+app.post("/college-search", async (req, res) => {
+
+    try {
+
+        const {
+            collegeSearchPreferences,
+            pastCourses
+        } = req.body;
+
+
+        /* =============================================
+           VALIDATE REQUEST
+           ============================================= */
+
+        if (!collegeSearchPreferences) {
+
+            return res.status(400).json({
+                error: "College search preferences are required."
+            });
+
+        }
+
+
+        if (!pastCourses) {
+
+            return res.status(400).json({
+                error: "Past course information is required."
+            });
+
+        }
+
+
+        console.log(
+            "\n========== COLLEGE SEARCH REQUEST =========="
+        );
+
+        console.log(
+            "College preferences:",
+            JSON.stringify(
+                collegeSearchPreferences,
+                null,
+                2
+            )
+        );
+
+        console.log(
+            "Past courses:",
+            JSON.stringify(
+                pastCourses,
+                null,
+                2
+            )
+        );
+
+
+        /* =============================================
+           GEMINI COLLEGE SEARCH
+           ============================================= */
+
+        console.log(
+            "Sending college search request to Gemini..."
+        );
+
+
+        const aiResponse = await ai.models.generateContent({
+
+            /*
+             * Use a Gemini model that supports
+             * Google Search grounding.
+             */
+            model: "gemini-3.7-flash",
+
+            contents: `
+
+            You are a college matching assistant that has an end goal of helping students by bridging the gap between education and Artificial intelligence.
+
+            Your job is to find colleges that are strong matches
+            for a specific student.
+
+            The student has completed a college preference survey.
+            Use ALL of the provided preferences when determining
+            which colleges are good matches.
+
+            You also have access to the student's past courses.
+            Use those courses to understand the student's academic
+            background and preparation.
+
+            You MUST use Google Search to research current
+            information about colleges before recommending them.
+
+            =====================================================
+            STUDENT COLLEGE PREFERENCES
+            =====================================================
+
+                ${JSON.stringify(
+                collegeSearchPreferences,
+                null,
+                2
+            )}
+
+
+            =====================================================
+            STUDENT PAST COURSES
+            =====================================================
+
+            ${JSON.stringify(
+                pastCourses,
+                null,
+                2
+            )}
+
+
+            =====================================================
+            WHAT YOU SHOULD DO
+            =====================================================
+
+            Search for colleges that match students preferences across different aspects related to looking for a college.
+
+            Consider:
+
+            1. CAMPUS LIFE
+
+            Use:
+            - campus setting
+            - housing preference
+            - campus/student culture
+
+            2. LOCATION
+
+            Use:
+            - location preference
+            - preferred state
+            - preferred region
+            - city proximity
+
+            3. COST
+
+            Use:
+            - minimum acceptable cost
+            - maximum acceptable cost
+
+            4. COLLEGE TYPE
+
+            Consider the student's preferred college types.
+
+            5. CAREER OUTCOMES
+
+            Consider:
+            - career priorities
+            - desired programs or fields
+
+            6. ADMISSIONS
+
+            Consider:
+            - testing preferences
+            - essay preferences
+            - recommendation preferences
+            - extracurricular preferences
+            - interview preferences
+
+            7. ACADEMIC BACKGROUND
+
+            Use the student's past courses to determine
+            whether the college's programs are academically
+            relevant to the student's background.
+
+            =====================================================
+            COLLEGE MATCHING
+            =====================================================
+
+            Do not simply return famous colleges.
+
+            Prioritize colleges that actually fit the student's
+            specific preferences.
+
+            A college can be a strong recommendation even if it
+            is not one of the highest-ranked schools.
+
+            Location, programs, cost, college type, campus life,
+            and the student's academic interests should all be
+            considered.
+
+            Try to find several strong matches rather than
+            returning only one college.
+
+            =====================================================
+            INFORMATION TO FIND
+            =====================================================
+
+            For each recommended college, find:
+
+            - College name
+            - Location
+            - Current/relevant ranking information
+            - Major programs or areas the college is well known for
+            - Why the college fits this particular student's criteria
+            -Find the official link of the college so a user is able to look for more information if they select a college of their liking
+
+            Use current web information whenever possible.
+
+            Do not invent information.
+
+            If a particular piece of information cannot be
+            verified, use "Not specified".
+
+            =====================================================
+            WHY IT FITS
+            =====================================================
+
+            The "whyItFits" explanation should be personalized.
+
+            Connect the college to specific information from
+            the student's preferences and course history.
+
+            For example, if the student is interested in
+            engineering and has taken physics-related courses,
+            and the college has a strong engineering program,
+            explain that connection.
+
+            Do not simply say:
+
+            "This college is a good fit because it has engineering."
+
+            Instead explain the connection between the student's
+            criteria and the college.
+
+            =====================================================
+            OUTPUT
+            =====================================================
+
+            Return ONLY valid JSON.
+
+            The response must follow this structure:
+
+            {
+                "colleges": [
+                    {
+                    "name": "College Name",
+                    "location": "City, State",
+                    "ranking": "Ranking information",
+                    "knownFor": [
+                        "Area or program"
+                    ],
+                    "whyItFits": "Short personalized explanation.",
+                    "website": "Official college website URL"
+                }
+                ]
+            }
+
+            Do not include markdown.
+
+            Do not include commentary outside the JSON.
+
+            `,
+
+            config: {
+
+                /*
+                 * Allow Gemini to search the web
+                 * for current college information.
+                 */
+                tools: [
+                    {
+                        googleSearch: {}
+                    }
+                ],
+
+                /*
+                 * Ask Gemini to return JSON.
+                 */
+                responseMimeType: "application/json"
+
+            }
+
+        });
+
+
+        /* =============================================
+           GET GEMINI RESPONSE
+           ============================================= */
+
+        const aiText = aiResponse.text;
+
+
+        console.log(
+            "\n========== RAW COLLEGE GEMINI RESPONSE =========="
+        );
+
+        console.log(aiText);
+
+        console.log(
+            "==================================================\n"
+        );
+
+
+        /* =============================================
+           PARSE JSON
+           ============================================= */
+
+        const parsedAI = JSON.parse(aiText);
+
+
+        console.log(
+            "\n========== PARSED COLLEGE RESULTS =========="
+        );
+
+        console.log(
+            JSON.stringify(
+                parsedAI,
+                null,
+                2
+            )
+        );
+
+        console.log(
+            "============================================\n"
+        );
+
+
+        /* =============================================
+           SEND RESULTS TO SEARCH.JSX
+           ============================================= */
+
+        res.json({
+
+            colleges: parsedAI.colleges || []
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "College search error:",
+            error
+        );
+
+
+        res.status(500).json({
+
+            error:
+                "Something went wrong while searching for colleges."
+
+        });
+
+    }
+
+});
 
 const PORT = 3001;
 
