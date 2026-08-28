@@ -7,8 +7,8 @@ import Admissions from "./survey_con/Admissions";
 import Campus from "./survey_con/Campus";
 import Cost from "./survey_con/Cost";
 import Location from "./survey_con/Location";
-import Outcomes from "./survey_con/Outcomes";
-import Type from "./survey_con/Type";
+import CareerOutcomes from "./survey_con/Outcomes";
+import CollegeType from "./survey_con/Type";
 
 import "./Survey.css";
 
@@ -602,9 +602,9 @@ export default function Survey({ user, onComplete }) {
 
           )}
 
-
+          
           {/* COLLEGE TYPE */}
-
+          
           {currentSection === 3 && (
 
             <CollegeType
@@ -618,7 +618,7 @@ export default function Survey({ user, onComplete }) {
             />
 
           )}
-
+          
 
           {/* CAREER & OUTCOMES */}
 

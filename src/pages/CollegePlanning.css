@@ -1,0 +1,349 @@
+
+/* =====================================================
+   COLLEGE PLANNING PAGE
+   ===================================================== */
+
+.college-planning-page {
+    font-family: "Inter", sans-serif;
+    min-height: 100vh;
+    background: #f7f8fc;
+}
+
+
+/* =====================================================
+   MAIN HOME PAGE
+   ===================================================== */
+
+.college-planning-home {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 70px 30px 80px;
+}
+
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
+.college-planning-header {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto 45px;
+}
+
+.college-planning-label {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #6366f1;
+    margin-bottom: 12px;
+}
+
+.college-planning-header h1 {
+    margin: 0;
+    font-size: 42px;
+    font-weight: 750;
+    color: #171827;
+}
+
+.college-planning-header > p:last-child {
+    margin-top: 15px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: #6b7280;
+}
+
+
+/* =====================================================
+   FIND COLLEGES BUTTON
+   ===================================================== */
+
+.find-colleges-button {
+    display: block;
+    margin: 0 auto 70px;
+
+    padding: 15px 28px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #4f46e5;
+    color: white;
+
+    font-size: 16px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.find-colleges-button:hover {
+    background: #4338ca;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.2);
+}
+
+.find-colleges-button:active {
+    transform: translateY(0);
+}
+
+
+/* =====================================================
+   SAVED COLLEGES SECTION
+   ===================================================== */
+
+.saved-colleges-section {
+    margin-top: 20px;
+}
+
+.saved-colleges-header {
+    margin-bottom: 25px;
+}
+
+.saved-colleges-header h2 {
+    margin: 0;
+    font-size: 27px;
+    color: #171827;
+}
+
+.saved-colleges-header p {
+    margin-top: 7px;
+    color: #6b7280;
+}
+
+
+/* =====================================================
+   SAVED COLLEGE GRID
+   ===================================================== */
+
+.saved-colleges-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(300px, 1fr));
+
+    gap: 24px;
+}
+
+
+/* =====================================================
+   NO SAVED COLLEGES
+   ===================================================== */
+
+.no-saved-colleges {
+    padding: 40px;
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+
+    text-align: center;
+
+    color: #6b7280;
+}
+
+.no-saved-colleges p {
+    margin: 6px 0;
+}
+
+
+/* =====================================================
+   PREFERENCE CHOICE PAGE
+   ===================================================== */
+
+.college-preference-choice {
+    min-height: calc(100vh - 70px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 20px;
+}
+
+
+/* =====================================================
+   PREFERENCE CARD
+   ===================================================== */
+
+.college-preference-card {
+    width: 100%;
+    max-width: 600px;
+
+    padding: 45px;
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.07);
+
+    text-align: center;
+}
+
+.college-preference-card h1 {
+    margin: 10px 0 15px;
+
+    font-size: 30px;
+    color: #171827;
+}
+
+.college-preference-card > p:not(.college-planning-label) {
+    margin: 0 auto 30px;
+
+    max-width: 500px;
+
+    color: #6b7280;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   PREFERENCE BUTTONS
+   ===================================================== */
+
+.college-preference-buttons {
+    display: flex;
+
+    gap: 14px;
+
+    justify-content: center;
+}
+
+.update-preferences-button,
+.continue-search-button {
+    padding: 13px 20px;
+
+    border-radius: 9px;
+
+    font-size: 15px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* UPDATE */
+
+.update-preferences-button {
+    background: white;
+
+    color: #4f46e5;
+
+    border: 1px solid #c7d2fe;
+}
+
+.update-preferences-button:hover {
+    background: #eef2ff;
+    transform: translateY(-1px);
+}
+
+
+/* CONTINUE */
+
+.continue-search-button {
+    background: #4f46e5;
+
+    color: white;
+
+    border: 1px solid #4f46e5;
+}
+
+.continue-search-button:hover {
+    background: #4338ca;
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 7px 18px rgba(79, 70, 229, 0.2);
+}
+
+
+/* =====================================================
+   GENERAL LOADING
+   ===================================================== */
+
+.college-planning-loading {
+    min-height: calc(100vh - 70px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.college-planning-loading h2 {
+    color: #4b5563;
+}
+
+
+/* =====================================================
+   GENERAL ERROR
+   ===================================================== */
+
+.college-planning-error {
+    max-width: 600px;
+
+    margin: 100px auto;
+
+    padding: 35px;
+
+    background: white;
+
+    border-radius: 16px;
+
+    border: 1px solid #e5e7eb;
+
+    text-align: center;
+}
+
+.college-planning-error h2 {
+    margin-bottom: 10px;
+
+    color: #dc2626;
+}
+
+.college-planning-error p {
+    color: #6b7280;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 650px) {
+
+    .college-planning-home {
+        padding: 45px 20px;
+    }
+
+    .college-planning-header h1 {
+        font-size: 34px;
+    }
+
+    .college-preference-card {
+        padding: 30px 22px;
+    }
+
+    .college-preference-buttons {
+        flex-direction: column;
+    }
+
+    .update-preferences-button,
+    .continue-search-button {
+        width: 100%;
+    }
+
+}
+

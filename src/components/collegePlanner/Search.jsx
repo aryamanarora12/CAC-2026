@@ -1,274 +1,274 @@
+
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 
 import { db } from "../../firebase";
 
-import SearchResults from "./searchResult";
-
 import "./Search.css";
 
 
-export default function Search({ user }) {
+export default function Search({ user, onComplete }) {
 
-  /* =====================================================
-     STATE
-     ===================================================== */
+    /* =====================================================
+       STATE
+       ===================================================== */
 
-  const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
-  const [error, setError] = useState("");
-
-  const [colleges, setColleges] = useState([]);
+    const [error, setError] = useState("");
 
 
-  /* =====================================================
-     GET DATA FROM FIREBASE
-     THEN SEND IT TO BACKEND
-     ===================================================== */
+    /* =====================================================
+       GET DATA FROM FIREBASE
+       THEN SEND IT TO BACKEND
+       ===================================================== */
 
-  useEffect(() => {
+    useEffect(() => {
 
-    async function findColleges() {
+        async function findColleges() {
 
-      if (!user || !user.uid) {
+            if (!user || !user.uid) {
 
-        setError(
-          "We could not identify your account. Please sign in again."
-        );
+                setError(
+                    "We could not identify your account. Please sign in again."
+                );
 
-        setLoading(false);
+                setLoading(false);
 
-        return;
-      }
-
-
-      try {
-
-        setLoading(true);
-        setError("");
+                return;
+            }
 
 
-        /* =============================================
-           GET USER DOCUMENT
-           ============================================= */
+            try {
 
-        const userRef = doc(
-          db,
-          "users",
-          user.uid
-        );
-
-        const userSnapshot = await getDoc(userRef);
+                setLoading(true);
+                setError("");
 
 
-        if (!userSnapshot.exists()) {
+                /* =============================================
+                   GET USER DOCUMENT
+                   ============================================= */
 
-          throw new Error(
-            "Your student profile could not be found."
-          );
+                const userRef = doc(
+                    db,
+                    "users",
+                    user.uid
+                );
+
+                const userSnapshot = await getDoc(userRef);
+
+
+                if (!userSnapshot.exists()) {
+
+                    throw new Error(
+                        "Your student profile could not be found."
+                    );
+
+                }
+
+
+                const userData = userSnapshot.data();
+
+
+                /* =============================================
+                   GET COLLEGE SEARCH PREFERENCES
+                   ============================================= */
+
+                const collegeSearchPreferences =
+                    userData.collegeSearchPreferences;
+
+
+                if (!collegeSearchPreferences) {
+
+                    throw new Error(
+                        "Your college search preferences could not be found."
+                    );
+
+                }
+
+
+                /* =============================================
+                   GET PAST COURSES
+                   ============================================= */
+
+                const pastCourses =
+                    userData.pastCourses || [];
+
+
+                /* =============================================
+                   DATA SENT TO BACKEND
+                   ============================================= */
+
+                const requestData = {
+
+                    collegeSearchPreferences,
+
+                    pastCourses
+
+                };
+
+
+                console.log(
+                    "College search request:",
+                    requestData
+                );
+
+
+                /* =============================================
+                   SEND DATA TO BACKEND
+                   ============================================= */
+
+                const response = await fetch(
+                    "http://localhost:3001/college-search",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify(requestData)
+
+                    }
+                );
+
+
+                /* =============================================
+                   CHECK BACKEND RESPONSE
+                   ============================================= */
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "The college search request failed."
+                    );
+
+                }
+
+
+                /* =============================================
+                   GET GEMINI RESULTS
+                   ============================================= */
+
+                const data = await response.json();
+
+
+                console.log(
+                    "College recommendations:",
+                    data
+                );
+
+
+                /* =============================================
+                   SEND RESULTS BACK TO COLLEGEPLANNING
+                   
+                   CollegePlanning.jsx is now responsible
+                   for displaying SearchResults.jsx.
+                   ============================================= */
+
+                if (onComplete) {
+
+                    onComplete(
+                        data.colleges || []
+                    );
+
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "College search error:",
+                    error
+                );
+
+                setError(
+                    error.message ||
+                    "Something went wrong while finding colleges."
+                );
+
+            } finally {
+
+                setLoading(false);
+
+            }
 
         }
 
 
-        const userData = userSnapshot.data();
+        findColleges();
+
+    }, [user, onComplete]);
 
 
-        /* =============================================
-           GET COLLEGE SEARCH PREFERENCES
-           
-           These come from Survey.jsx
-           ============================================= */
+    /* =====================================================
+       LOADING SCREEN
+       ===================================================== */
 
-        const collegeSearchPreferences =
-          userData.collegeSearchPreferences;
+    if (loading) {
 
+        return (
 
-        if (!collegeSearchPreferences) {
+            <div className="college-search-loading">
 
-          throw new Error(
-            "Your college search survey has not been completed yet."
-          );
+                <div className="college-search-loading-card">
 
-        }
+                    <div className="college-search-spinner"></div>
 
+                    <h2>
+                        Finding Your College Matches
+                    </h2>
 
-        /* =============================================
-           GET PAST COURSES
-           
-           These come from the student's Firebase profile.
-           ============================================= */
+                    <p>
+                        We're looking for colleges that match
+                        your preferences and academic background.
+                    </p>
 
-        const pastCourses =
-          userData.pastCourses || [];
+                </div>
 
+            </div>
 
-        /* =============================================
-           DATA THAT WILL BE SENT TO BACKEND
-           ============================================= */
-
-        const requestData = {
-
-          collegeSearchPreferences,
-
-          pastCourses
-
-        };
-
-
-        console.log(
-          "College search request:",
-          requestData
         );
-
-
-        /* =============================================
-           SEND DATA TO BACKEND
-           ============================================= */
-
-        const response = await fetch(
-          "http://localhost:3001/api/college-search",
-          {
-
-            method: "POST",
-
-            headers: {
-              "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify(requestData)
-
-          }
-        );
-
-
-        /* =============================================
-           CHECK BACKEND RESPONSE
-           ============================================= */
-
-        if (!response.ok) {
-
-          throw new Error(
-            "The college search request failed."
-          );
-
-        }
-
-
-        /* =============================================
-           GET GEMINI RESULTS
-           ============================================= */
-
-        const data = await response.json();
-
-
-        console.log(
-          "College recommendations:",
-          data
-        );
-
-
-        /* =============================================
-           SAVE COLLEGES
-           ============================================= */
-
-        setColleges(
-          data.colleges || []
-        );
-
-
-      } catch (error) {
-
-        console.error(
-          "College search error:",
-          error
-        );
-
-        setError(
-          error.message ||
-          "Something went wrong while finding colleges."
-        );
-
-      } finally {
-
-        setLoading(false);
-
-      }
 
     }
 
 
-    findColleges();
+    /* =====================================================
+       ERROR SCREEN
+       ===================================================== */
 
-  }, [user]);
+    if (error) {
 
+        return (
 
-  /* =====================================================
-     LOADING SCREEN
-     ===================================================== */
+            <div className="college-search-error">
 
-  if (loading) {
+                <h2>
+                    Something went wrong
+                </h2>
 
-    return (
+                <p>
+                    {error}
+                </p>
 
-      <div className="college-search-loading">
+            </div>
 
-        <div className="college-search-loading-card">
+        );
 
-          <div className="college-search-spinner"></div>
-
-          <h2>
-            Finding Your College Matches
-          </h2>
-
-          <p>
-            We're looking for colleges that match
-            your preferences and academic background.
-          </p>
-
-        </div>
-
-      </div>
-
-    );
-
-  }
+    }
 
 
-  /* =====================================================
-     ERROR SCREEN
-     ===================================================== */
+    /* =====================================================
+       SEARCH COMPLETE
+       
+       Normally this component should immediately call
+       onComplete() and CollegePlanning.jsx will switch
+       to SearchResults.jsx.
+       ===================================================== */
 
-  if (error) {
-
-    return (
-
-      <div className="college-search-error">
-
-        <h2>
-          Something went wrong
-        </h2>
-
-        <p>
-          {error}
-        </p>
-
-      </div>
-
-    );
-
-  }
-
-
-  /* =====================================================
-     RESULTS
-     ===================================================== */
-
-  return (
-
-    <SearchResults
-      colleges={colleges}
-    />
-
-  );
+    return null;
 
 }
+
+

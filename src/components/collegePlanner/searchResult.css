@@ -1,15 +1,15 @@
+
 /* =====================================================
-   COLLEGE RESULTS PAGE
+   RESULTS PAGE
    ===================================================== */
 
 .college-results-page {
-    min-height: 100vh;
-
-    padding: 50px 60px 80px;
-
-    background-color: #f7f9fc;
-
     font-family: "Inter", sans-serif;
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 65px 30px 80px;
 }
 
 
@@ -18,14 +18,15 @@
    ===================================================== */
 
 .college-results-header {
-    max-width: 1100px;
+    text-align: center;
 
-    margin: 0 auto 40px;
+    max-width: 750px;
+
+    margin: 0 auto 45px;
 }
 
-
 .college-results-label {
-    margin: 0 0 8px;
+    margin-bottom: 10px;
 
     font-size: 13px;
 
@@ -33,49 +34,39 @@
 
     letter-spacing: 1.5px;
 
-    color: #437bcf;
+    color: #6366f1;
 }
-
 
 .college-results-header h1 {
-    margin: 0 0 12px;
+    margin: 0;
 
-    font-size: 36px;
+    font-size: 40px;
 
-    font-weight: 700;
-
-    color: #1f2937;
+    color: #171827;
 }
 
-
 .college-results-header > p:last-child {
-    margin: 0;
+    margin-top: 14px;
+
+    color: #6b7280;
 
     font-size: 16px;
 
     line-height: 1.6;
-
-    color: #6b7280;
 }
 
 
 /* =====================================================
-   COLLEGE GRID
+   RESULTS GRID
    ===================================================== */
 
 .college-results-grid {
-
-    max-width: 1100px;
-
-    margin: 0 auto;
-
     display: grid;
 
     grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+        repeat(auto-fit, minmax(310px, 1fr));
 
-    gap: 25px;
-
+    gap: 24px;
 }
 
 
@@ -84,36 +75,34 @@
    ===================================================== */
 
 .college-card {
-
     display: flex;
 
     flex-direction: column;
 
     padding: 28px;
 
-    background-color: #ffffff;
+    background: white;
 
     border: 1px solid #e5e7eb;
 
     border-radius: 18px;
 
     box-shadow:
-        0 8px 24px rgba(0, 0, 0, 0.05);
+        0 5px 15px rgba(0, 0, 0, 0.04);
 
     transition:
         transform 0.2s ease,
-        box-shadow 0.2s ease;
-
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
 }
 
-
 .college-card:hover {
-
     transform: translateY(-4px);
 
     box-shadow:
-        0 14px 32px rgba(0, 0, 0, 0.09);
+        0 15px 30px rgba(0, 0, 0, 0.08);
 
+    border-color: #c7d2fe;
 }
 
 
@@ -122,17 +111,13 @@
    ===================================================== */
 
 .college-name {
-
     margin: 0 0 8px;
 
     font-size: 23px;
 
-    line-height: 1.3;
+    line-height: 1.25;
 
-    font-weight: 700;
-
-    color: #1f2937;
-
+    color: #171827;
 }
 
 
@@ -141,60 +126,46 @@
    ===================================================== */
 
 .college-location {
-
     margin: 0 0 22px;
-
-    font-size: 14px;
 
     color: #6b7280;
 
+    font-size: 14px;
 }
 
 
 /* =====================================================
-   COLLEGE INFO
+   INFO ROW
    ===================================================== */
 
 .college-info {
-
     display: flex;
-
-    justify-content: space-between;
 
     align-items: center;
 
-    padding: 14px 0;
+    justify-content: space-between;
 
-    border-top: 1px solid #eef0f3;
+    padding: 12px 0;
 
-    border-bottom: 1px solid #eef0f3;
+    border-top: 1px solid #f0f0f0;
 
+    border-bottom: 1px solid #f0f0f0;
 }
 
-
 .college-info-label {
-
-    font-size: 14px;
+    font-size: 13px;
 
     font-weight: 600;
 
     color: #6b7280;
-
 }
 
-
 .college-info-value {
-
-    max-width: 60%;
-
-    text-align: right;
-
     font-size: 14px;
 
-    font-weight: 600;
+    font-weight: 700;
 
-    color: #1f2937;
-
+    color: #374151;
 }
 
 
@@ -203,53 +174,47 @@
    ===================================================== */
 
 .college-known-for {
-
     margin-top: 22px;
-
 }
-
 
 .college-known-for h3,
 .college-match h3 {
-
     margin: 0 0 10px;
 
-    font-size: 15px;
+    font-size: 14px;
 
     font-weight: 700;
 
-    color: #1f2937;
-
+    color: #374151;
 }
 
 
-.college-tags {
+/* =====================================================
+   TAGS
+   ===================================================== */
 
+.college-tags {
     display: flex;
 
     flex-wrap: wrap;
 
-    gap: 8px;
-
+    gap: 7px;
 }
 
-
 .college-tag {
-
     display: inline-block;
 
-    padding: 6px 11px;
+    padding: 6px 10px;
 
-    border-radius: 999px;
+    border-radius: 7px;
 
-    background-color: #eef4ff;
+    background: #eef2ff;
 
-    color: #437bcf;
+    color: #4338ca;
 
     font-size: 12px;
 
     font-weight: 600;
-
 }
 
 
@@ -258,66 +223,130 @@
    ===================================================== */
 
 .college-match {
-
     margin-top: 22px;
 
+    flex-grow: 1;
 }
 
-
 .college-match p {
-
     margin: 0;
+
+    color: #6b7280;
 
     font-size: 14px;
 
     line-height: 1.65;
-
-    color: #5f6773;
-
 }
 
 
 /* =====================================================
-   LEARN MORE
+   WEBSITE BUTTON
    ===================================================== */
 
 .college-learn-more {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
+    display: block;
 
     margin-top: 25px;
 
-    padding: 11px 17px;
+    padding: 12px 15px;
 
-    border-radius: 10px;
+    border-radius: 9px;
 
-    background-color: #437bcf;
+    background: #4f46e5;
 
-    color: #ffffff;
+    color: white;
 
     text-decoration: none;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    font-weight: 650;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.college-learn-more:hover {
+    background: #4338ca;
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   SAVE COLLEGE BUTTON
+   ===================================================== */
+
+.save-college-button {
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 11px 15px;
+
+    border-radius: 9px;
+
+    border: 1px solid #c7d2fe;
+
+    background: white;
+
+    color: #4f46e5;
+
+    font-size: 14px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.save-college-button:hover {
+    background: #eef2ff;
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   BACK BUTTON
+   ===================================================== */
+
+.back-to-planning-button {
+    display: block;
+
+    margin: 30px auto 0;
+
+    padding: 11px 18px;
+
+    background: white;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 9px;
+
+    color: #374151;
 
     font-size: 14px;
 
     font-weight: 600;
 
-    transition:
-        background-color 0.2s ease,
-        transform 0.2s ease;
+    cursor: pointer;
 
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
 }
 
-
-.college-learn-more:hover {
-
-    background-color: #3669b0;
+.back-to-planning-button:hover {
+    background: #f3f4f6;
 
     transform: translateY(-1px);
-
 }
 
 
@@ -325,11 +354,8 @@
    NO RESULTS
    ===================================================== */
 
-.college-results-page
-    .college-results-header {
-
-    text-align: left;
-
+.college-results-page .college-results-header {
+    margin-bottom: 0;
 }
 
 
@@ -337,53 +363,23 @@
    MOBILE
    ===================================================== */
 
-@media (max-width: 800px) {
+@media (max-width: 650px) {
 
     .college-results-page {
-
-        padding: 35px 20px 60px;
-
+        padding: 45px 20px 60px;
     }
-
-
-    .college-results-grid {
-
-        grid-template-columns: 1fr;
-
-    }
-
 
     .college-results-header h1 {
-
-        font-size: 30px;
-
+        font-size: 32px;
     }
 
-}
-
-
-@media (max-width: 500px) {
-
-    .college-results-page {
-
-        padding: 30px 15px 50px;
-
+    .college-results-grid {
+        grid-template-columns: 1fr;
     }
-
 
     .college-card {
-
-        padding: 22px;
-
-        border-radius: 15px;
-
-    }
-
-
-    .college-name {
-
-        font-size: 21px;
-
+        padding: 24px;
     }
 
 }
+

@@ -3,6 +3,7 @@
    ===================================================== */
 
 .college-search-loading {
+    font-family: "Inter", sans-serif;
     min-height: 70vh;
 
     display: flex;

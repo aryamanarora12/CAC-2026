@@ -1,13 +1,16 @@
+
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+
 import {
   getAuth,
-  GoogleAuthProvider
+  GoogleAuthProvider,
+  setPersistence,
+  browserLocalPersistence
 } from "firebase/auth";
+
 import { getFirestore } from "firebase/firestore";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAKT6IgvPTNOatifMcT1EiBckCW-TjG-LY",
   authDomain: "cac2026-dc2a7.firebaseapp.com",
@@ -18,11 +21,20 @@ const firebaseConfig = {
   measurementId: "G-5834RNTDCW"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
 const analytics = getAnalytics(app);
 
 export const auth = getAuth(app);
+
+setPersistence(auth, browserLocalPersistence)
+  .then(() => {
+    console.log("Firebase Auth persistence enabled");
+  })
+  .catch((error) => {
+    console.error("Firebase persistence error:", error);
+  });
+
 export const db = getFirestore(app);
 
 export const googleProvider = new GoogleAuthProvider();

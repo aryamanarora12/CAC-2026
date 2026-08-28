@@ -350,53 +350,94 @@ app.post("/college-search", async (req, res) => {
                 2
             )
         );
-
-
         /* =============================================
-           GEMINI COLLEGE SEARCH
-           ============================================= */
+        TAVILY COLLEGE SEARCH
+        ============================================= */
 
         console.log(
-            "Sending college search request to Gemini..."
+            "Searching the web with Tavily..."
         );
 
+        const searchQuery = `
+        Find specific colleges and universities in the ${collegeSearchPreferences.location.region || "United States"} 
+        with strong ${collegeSearchPreferences.careerOutcomes.programs?.join(" and ") || "academic"} programs,
+        research opportunities, and a ${collegeSearchPreferences.campusLife.setting || "varied"} campus setting.
+        `;
+
+        console.log(
+            "\n========== TAVILY SEARCH QUERY =========="
+        );
+
+        console.log(searchQuery);
+
+        console.log(
+            "=========================================\n"
+        );
+
+        const searchResponse = await tvly.search(searchQuery, {
+            search_depth: "advanced",
+            max_results: 10
+        });
+        const searchResults = searchResponse.results.map(
+            (result, index) => ({
+                id: index + 1,
+                title: result.title,
+                url: result.url,
+                content: result.content
+            })
+        );
+
+        console.log(
+            "\n========== TAVILY RESULTS =========="
+        );
+
+        console.log(
+            "Results received:",
+            searchResults.length
+        );
+
+        console.log(
+            JSON.stringify(
+                searchResults,
+                null,
+                2
+            )
+        );
+
+        console.log(
+            "====================================\n"
+        );
+
+        console.log(
+            "Sending Tavily results to Gemini for matching..."
+        );
 
         const aiResponse = await ai.models.generateContent({
-
-            /*
-             * Use a Gemini model that supports
-             * Google Search grounding.
-             */
-            model: "gemini-3.7-flash",
+            model: "gemini-3.5-flash-lite",
 
             contents: `
+            You are an intelligent college-matching assistant.
 
-            You are a college matching assistant that has an end goal of helping students by bridging the gap between education and Artificial intelligence.
+            Your job is NOT to search the internet.
 
-            Your job is to find colleges that are strong matches
-            for a specific student.
+            Instead, you have been given:
 
-            The student has completed a college preference survey.
-            Use ALL of the provided preferences when determining
-            which colleges are good matches.
+            1. A student's college preferences
+            2. The student's past courses
+            3. Web search results collected by Tavily
 
-            You also have access to the student's past courses.
-            Use those courses to understand the student's academic
-            background and preparation.
-
-            You MUST use Google Search to research current
-            information about colleges before recommending them.
+            Your job is to analyze the available colleges and determine
+            which ones are the strongest matches for THIS student.
 
             =====================================================
             STUDENT COLLEGE PREFERENCES
             =====================================================
 
-                ${JSON.stringify(
+            ${JSON.stringify(
                 collegeSearchPreferences,
                 null,
                 2
             )}
-
 
             =====================================================
             STUDENT PAST COURSES
@@ -408,120 +449,118 @@ app.post("/college-search", async (req, res) => {
                 2
             )}
 
+            =====================================================
+            TAVILY WEB SEARCH RESULTS
+            =====================================================
+
+            ${JSON.stringify(
+                searchResults,
+                null,
+                2
+            )}
 
             =====================================================
-            WHAT YOU SHOULD DO
+            MATCHING PROCESS
             =====================================================
 
-            Search for colleges that match students preferences across different aspects related to looking for a college.
+            Evaluate each college using the student's preferences.
 
             Consider:
 
             1. CAMPUS LIFE
-
-            Use:
             - campus setting
-            - housing preference
-            - campus/student culture
+            - housing
+            - student culture
 
             2. LOCATION
-
-            Use:
-            - location preference
             - preferred state
             - preferred region
             - city proximity
 
             3. COST
-
-            Use:
             - minimum acceptable cost
             - maximum acceptable cost
 
             4. COLLEGE TYPE
-
-            Consider the student's preferred college types.
+            - preferred college types
 
             5. CAREER OUTCOMES
-
-            Consider:
             - career priorities
-            - desired programs or fields
+            - desired programs
 
             6. ADMISSIONS
-
-            Consider:
             - testing preferences
-            - essay preferences
-            - recommendation preferences
-            - extracurricular preferences
-            - interview preferences
+            - essays
+            - recommendations
+            - extracurriculars
+            - interviews
 
             7. ACADEMIC BACKGROUND
-
-            Use the student's past courses to determine
-            whether the college's programs are academically
-            relevant to the student's background.
-
-            =====================================================
-            COLLEGE MATCHING
-            =====================================================
-
-            Do not simply return famous colleges.
-
-            Prioritize colleges that actually fit the student's
-            specific preferences.
-
-            A college can be a strong recommendation even if it
-            is not one of the highest-ranked schools.
-
-            Location, programs, cost, college type, campus life,
-            and the student's academic interests should all be
-            considered.
-
-            Try to find several strong matches rather than
-            returning only one college.
+            - past courses
+            - academic preparation
+            - relationship between coursework and desired programs
 
             =====================================================
-            INFORMATION TO FIND
+            IMPORTANT RULES
             =====================================================
 
-            For each recommended college, find:
+            1. Do not invent colleges.
 
-            - College name
-            - Location
-            - Current/relevant ranking information
-            - Major programs or areas the college is well known for
-            - Why the college fits this particular student's criteria
-            -Find the official link of the college so a user is able to look for more information if they select a college of their liking
+            2. Only recommend colleges that appear in the supplied
+            Tavily search results.
 
-            Use current web information whenever possible.
+            3. Do not use Google Search or any other web search.
 
-            Do not invent information.
+            4. Do not invent rankings, costs, acceptance rates,
+            programs, locations, or other facts.
 
-            If a particular piece of information cannot be
-            verified, use "Not specified".
+            5. Only use information contained in the supplied
+            Tavily results.
+
+            6. If information is unavailable, use "Not specified".
+
+            7. A college does not need to be highly ranked to be
+            a strong match.
+
+            8. Prioritize the student's actual preferences over
+            general reputation.
+
+            9. Use the student's past courses to understand their
+            academic background.
+
+            =====================================================
+            MATCH SCORE
+            =====================================================
+
+            Give each college a matchScore from 0 to 100.
+
+            90-100:
+            Exceptional match.
+
+            75-89:
+            Strong match.
+
+            60-74:
+            Moderate match.
+
+            40-59:
+            Weak match.
+
+            0-39:
+            Poor match.
+
+            Do not inflate scores simply because a college is famous.
 
             =====================================================
             WHY IT FITS
             =====================================================
 
-            The "whyItFits" explanation should be personalized.
+            For every college, explain why it matches THIS student.
 
-            Connect the college to specific information from
-            the student's preferences and course history.
+            Connect the student's actual preferences and coursework
+            to information found in the Tavily results.
 
-            For example, if the student is interested in
-            engineering and has taken physics-related courses,
-            and the college has a strong engineering program,
-            explain that connection.
-
-            Do not simply say:
-
-            "This college is a good fit because it has engineering."
-
-            Instead explain the connection between the student's
-            criteria and the college.
+            Avoid generic statements.
 
             =====================================================
             OUTPUT
@@ -529,76 +568,46 @@ app.post("/college-search", async (req, res) => {
 
             Return ONLY valid JSON.
 
-            The response must follow this structure:
+            Use exactly this structure:
 
             {
                 "colleges": [
                     {
-                    "name": "College Name",
-                    "location": "City, State",
-                    "ranking": "Ranking information",
-                    "knownFor": [
-                        "Area or program"
-                    ],
-                    "whyItFits": "Short personalized explanation.",
-                    "website": "Official college website URL"
-                }
+                        "name": "College Name",
+                        "location": "City, State",
+                        "ranking": "Ranking information or Not specified",
+                        "knownFor": [
+                            "Program or area"
+                        ],
+                        "whyItFits": "Personalized explanation",
+                        "matchScore": 85,
+                        "website": "Official website URL or Not specified"
+                    }
                 ]
             }
 
             Do not include markdown.
 
             Do not include commentary outside the JSON.
-
             `,
 
             config: {
-
-                /*
-                 * Allow Gemini to search the web
-                 * for current college information.
-                 */
-                tools: [
-                    {
-                        googleSearch: {}
-                    }
-                ],
-
-                /*
-                 * Ask Gemini to return JSON.
-                 */
                 responseMimeType: "application/json"
-
             }
-
         });
-
-
-        /* =============================================
-           GET GEMINI RESPONSE
-           ============================================= */
-
         const aiText = aiResponse.text;
 
-
         console.log(
-            "\n========== RAW COLLEGE GEMINI RESPONSE =========="
+            "\n========== RAW GEMINI RESPONSE =========="
         );
 
         console.log(aiText);
 
         console.log(
-            "==================================================\n"
+            "=========================================\n"
         );
 
-
-        /* =============================================
-           PARSE JSON
-           ============================================= */
-
         const parsedAI = JSON.parse(aiText);
-
-
         console.log(
             "\n========== PARSED COLLEGE RESULTS =========="
         );
@@ -614,17 +623,11 @@ app.post("/college-search", async (req, res) => {
         console.log(
             "============================================\n"
         );
-
-
-        /* =============================================
-           SEND RESULTS TO SEARCH.JSX
-           ============================================= */
-
         res.json({
-
             colleges: parsedAI.colleges || []
-
         });
+
+
 
 
     } catch (error) {
