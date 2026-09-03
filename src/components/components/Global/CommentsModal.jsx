@@ -38,45 +38,49 @@ export default function CommentsModal({ questionId }) {
 
 
   // Fetch comments for this question
-  useEffect(() => {
+useEffect(() => {
+  if (!questionId) return;
 
-    if (!questionId) return;
+  const fetchComments = async () => {
+    setLoading(true);
 
-    const fetchComments = async () => {
+    try {
+      const commentsQuery = query(
+        collection(db, "comments"),
+        where("questionId", "==", questionId)
+      );
 
-      setLoading(true);
+      const snapshot = await getDocs(commentsQuery);
 
-      try {
+      const data = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
 
-        const commentsQuery = query(
-          collection(db, "comments"),
-          where("questionId", "==", questionId),
-          orderBy("createdAt", "asc")
-        );
+      // Sort oldest → newest
+      data.sort((a, b) => {
+        const timeA = a.createdAt?.toDate
+          ? a.createdAt.toDate().getTime()
+          : 0;
 
-        const snapshot = await getDocs(commentsQuery);
+        const timeB = b.createdAt?.toDate
+          ? b.createdAt.toDate().getTime()
+          : 0;
 
-        const data = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        return timeA - timeB;
+      });
 
-        setComments(data);
+      setComments(data);
 
-      } catch (error) {
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        console.error("Error fetching comments:", error);
-
-      } finally {
-
-        setLoading(false);
-
-      }
-    };
-
-    fetchComments();
-
-  }, [questionId]);
+  fetchComments();
+}, [questionId]);
 
 
   // Add a new comment
