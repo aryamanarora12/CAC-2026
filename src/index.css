@@ -34,6 +34,14 @@ body {
   background: var(--bg);
 }
 
+html:has(.subpage) {
+  scrollbar-width: none;
+}
+
+html:has(.subpage)::-webkit-scrollbar {
+  display: none;
+}
+
 #root {
   width: 100%;
   max-width: none;
@@ -83,10 +91,16 @@ p {
 }
 
 .subpage-content {
-  width: min(100% - 48px, 1280px);
+  width: min(100% - 96px, 1280px);
   margin: 0 auto;
   padding: 52px 0 80px;
   box-sizing: border-box;
+}
+
+.subpage-content .subpage-title {
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
 }
 
 .subpage-header {
@@ -118,23 +132,12 @@ p {
   font-size: 1.05rem;
 }
 
-.subpage-forum-content {
-  width: min(100% - 48px, 1280px);
-  margin: 0 auto;
-  padding: 52px 0 80px;
-  box-sizing: border-box;
-}
-
 @media (max-width: 600px) {
   .subpage-content {
-    width: min(100% - 32px, 1280px);
+    width: min(100% - 48px, 1280px);
     padding-top: 36px;
   }
 
-  .subpage-forum-content {
-    width: min(100% - 32px, 1280px);
-    padding-top: 36px;
-  }
 }
 
 code,

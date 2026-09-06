@@ -65,6 +65,7 @@ export default function NavBar() {
               fontWeight: 800,
               textDecoration: "none",
               whiteSpace: "nowrap",
+              ml: { xs: -0.5, md: -1 },
               mr: { xs: 1, md: 4 },
             }}
           >

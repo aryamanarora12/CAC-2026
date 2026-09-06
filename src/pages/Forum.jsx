@@ -191,7 +191,7 @@ function Forum() {
       <Navbar />
 
 
-      <Stack className="subpage-forum-content">
+      <Stack className="subpage-content">
 
         {/* Header */}
 
@@ -203,26 +203,11 @@ function Forum() {
           }}>
             <CommentsModal questionId={questionId} />
           </Drawer>
-          <Typography
-            variant="h5"
-            sx={{
-              fontWeight: "bold",
-              textAlign: "left",
-            }}
-          >
-            Get Quick Help on the Application Process!
+          <p className="subpage-eyebrow">Community support</p>
+          <Typography component="h1" className="subpage-title">
+            Forum
           </Typography>
-
-
-          <Typography
-            variant="h6"
-            sx={{
-              color: "grey",
-              width: "50%",
-              textAlign: "left",
-              fontSize: 15,
-            }}
-          >
+          <Typography component="p" className="subpage-description">
             Whether you have questions about college
             applications, need help with your personal
             statement, are looking for advice on choosing
@@ -289,9 +274,10 @@ function Forum() {
               <Typography
                 variant="h5"
                 sx={{
-                  fontWeight: "bold",
+                  fontFamily: "var(--heading)",
+                  fontWeight: 700,
+                  color: "var(--text-h)",
                   textAlign: "left",
-                  pl: 5,
                   marginTop: 5,
                 }}
               >
