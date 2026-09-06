@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Navbar from "../components/components/Global/Navbar";
 
 function OpportunityFinder() {
@@ -6,13 +6,13 @@ function OpportunityFinder() {
   return (
     <div className="subpage">
       <Navbar />
-      <Stack sx={{ width: "100%" }}>
-        <Stack sx={{ pl: 5, marginTop: 5 }}>
-          <Typography variant="h5" sx={{ fontWeight: "bold", textAlign: "left" }}>
-            Opportunity Finder
-          </Typography>
-        </Stack>
-      </Stack>
+      <main className="subpage-content">
+        <header className="subpage-header">
+          <p className="subpage-eyebrow">Find your next opening</p>
+          <Typography component="h1" className="subpage-title">Opportunity Finder</Typography>
+          <p className="subpage-description">Discover programs, scholarships, and experiences that fit your ambitions.</p>
+        </header>
+      </main>
     </div>
   );
 

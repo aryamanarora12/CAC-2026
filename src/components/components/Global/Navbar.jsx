@@ -38,19 +38,20 @@ export default function NavBar() {
       position="sticky"
       elevation={0}
       sx={{
-        backgroundColor: "#ffffff",
-        color: "#172033",
-        borderBottom: "1px solid #e5e7eb",
+        backgroundColor: "rgba(255, 255, 255, 0.88)",
+        color: "var(--text-h)",
+        borderBottom: "1px solid var(--border)",
+        backdropFilter: "blur(18px)",
       }}
     >
       <Container maxWidth={false}>
         <Toolbar
           disableGutters
           sx={{
-            minHeight: "72px",
+            minHeight: "76px",
             display: "flex",
             justifyContent: "space-between",
-            px: { xs: 2, md: 5 },
+            px: { xs: 2, md: 4 },
           }}
         >
           {/* Logo */}
@@ -58,12 +59,13 @@ export default function NavBar() {
             component={NavLink}
             to="/home"
             sx={{
-              color: "#3157d5",
-              fontSize: "1.5rem",
+              color: "var(--accent)",
+              fontFamily: "var(--heading)",
+              fontSize: "1.35rem",
               fontWeight: 800,
               textDecoration: "none",
               whiteSpace: "nowrap",
-              mr: 4,
+              mr: { xs: 1, md: 4 },
             }}
           >
             CAC Planner
@@ -74,7 +76,7 @@ export default function NavBar() {
             sx={{
               display: "flex",
               alignItems: "center",
-              gap: 0.5,
+              gap: 0.25,
               flexWrap: "wrap",
               justifyContent: "flex-end",
             }}
@@ -85,22 +87,22 @@ export default function NavBar() {
                 component={NavLink}
                 to={item.path}
                 sx={{
-                  color: "#596579",
+                  color: "var(--text)",
                   fontWeight: 600,
                   fontSize: "0.9rem",
                   textTransform: "none",
-                  borderRadius: "10px",
+                  borderRadius: "8px",
                   px: 1.5,
                   py: 1,
 
                   "&:hover": {
-                    backgroundColor: "#eef2ff",
-                    color: "#3157d5",
+                    backgroundColor: "var(--accent-soft)",
+                    color: "var(--accent)",
                   },
 
                   "&.active": {
-                    backgroundColor: "#e8edff",
-                    color: "#3157d5",
+                    backgroundColor: "var(--accent-soft)",
+                    color: "var(--accent)",
                   },
                 }}
               >
@@ -116,14 +118,14 @@ export default function NavBar() {
                 ml: 1,
                 px: 2,
                 py: 1,
-                borderRadius: "10px",
-                backgroundColor: "#3157d5",
+                borderRadius: "8px",
+                backgroundColor: "var(--accent)",
                 color: "#ffffff",
                 fontWeight: 600,
                 textTransform: "none",
 
                 "&:hover": {
-                  backgroundColor: "#2445b8",
+                  backgroundColor: "var(--accent-dark)",
                 },
               }}
             >

@@ -191,16 +191,11 @@ function Forum() {
       <Navbar />
 
 
-      <Stack sx={{ width: "100%" }}>
+      <Stack className="subpage-forum-content">
 
         {/* Header */}
 
-        <Stack
-          sx={{
-            pl: 5,
-            marginTop: 5,
-          }}
-        >
+        <Stack className="subpage-header">
 
           <Drawer anchor="right" open={open} onClose={() => {
             setOpen(false)

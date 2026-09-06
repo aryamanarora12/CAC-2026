@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Navbar from "../components/components/Global/Navbar";
 
 function CollegePlanning() {
@@ -6,13 +6,13 @@ function CollegePlanning() {
   return (
     <div className="subpage">
       <Navbar />
-      <Stack sx={{ width: "100%" }}>
-        <Stack sx={{ pl: 5, marginTop: 5 }}>
-          <Typography variant="h5" sx={{ fontWeight: "bold", textAlign: "left" }}>
-            College Planning
-          </Typography>
-        </Stack>
-      </Stack>
+      <main className="subpage-content">
+        <header className="subpage-header">
+          <p className="subpage-eyebrow">Plan with purpose</p>
+          <Typography component="h1" className="subpage-title">College Planning</Typography>
+          <p className="subpage-description">Build a clear path from your next step to your college goals.</p>
+        </header>
+      </main>
     </div>
   );
 
