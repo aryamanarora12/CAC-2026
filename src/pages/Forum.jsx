@@ -186,7 +186,7 @@ function Forum() {
 
   return (
 
-    <div>
+    <div className="subpage">
 
       <Navbar />
 
