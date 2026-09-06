@@ -89,6 +89,7 @@ export default function NavBar() {
                 to={item.path}
                 sx={{
                   color: "var(--text)",
+                  fontFamily: "var(--sans)",
                   fontWeight: 600,
                   fontSize: "0.9rem",
                   textTransform: "none",
@@ -122,6 +123,7 @@ export default function NavBar() {
                 borderRadius: "8px",
                 backgroundColor: "var(--accent)",
                 color: "#ffffff",
+                fontFamily: "var(--sans)",
                 fontWeight: 600,
                 textTransform: "none",
 

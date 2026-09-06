@@ -88,6 +88,15 @@ p {
   background:
     radial-gradient(circle at 90% 0%, rgba(49, 87, 213, 0.08), transparent 28rem),
     var(--bg);
+  font-family: var(--sans);
+}
+
+.subpage .MuiTypography-root:not(.subpage-title),
+.subpage .MuiButtonBase-root,
+.subpage .MuiInputBase-root,
+.subpage .MuiFormLabel-root,
+.subpage .MuiChip-root {
+  font-family: var(--sans);
 }
 
 .subpage-content {

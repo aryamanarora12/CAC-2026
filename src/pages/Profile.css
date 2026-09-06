@@ -1,0 +1,204 @@
+.profile-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+.profile-card {
+  box-sizing: border-box;
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: var(--shadow-small);
+  text-align: left;
+}
+
+.profile-card-primary {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 338px;
+}
+
+.profile-identity {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.profile-avatar {
+  display: grid;
+  flex: 0 0 auto;
+  width: 76px;
+  height: 76px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--heading);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.profile-label {
+  margin: 0 0 5px;
+  color: var(--text);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.profile-name {
+  margin: 0;
+  font-family: var(--heading);
+  font-size: clamp(1.5rem, 3vw, 2.15rem);
+  line-height: 1.1;
+}
+
+.profile-email,
+.profile-value,
+.card-supporting-text {
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.profile-email {
+  margin-top: 7px;
+  font-size: 0.95rem;
+}
+
+.profile-detail-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding-top: 28px;
+}
+
+.profile-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+
+.profile-detail-icon {
+  display: grid;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 8px;
+  background: #f0f4f9;
+  color: var(--accent);
+}
+
+.profile-detail-icon svg,
+.google-mark,
+.calendar-mark {
+  font-size: 19px;
+}
+
+.profile-value {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.profile-side-column {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+}
+
+.connection-card,
+.account-age-card {
+  min-height: 159px;
+}
+
+.card-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.card-heading h2 {
+  margin: 0;
+  font-size: 1.18rem;
+}
+
+.google-mark,
+.calendar-mark {
+  flex: 0 0 auto;
+  color: var(--accent);
+}
+
+.connection-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  color: #9a5b12;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.connection-status.is-connected {
+  color: #24734d;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d99335;
+}
+
+.is-connected .status-dot {
+  background: #38a169;
+}
+
+.card-supporting-text {
+  margin-top: 7px;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.account-age {
+  margin-top: 20px;
+  color: var(--text-h);
+  font-family: var(--heading);
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+@media (max-width: 760px) {
+  .profile-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-side-column {
+    grid-template-rows: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .profile-card {
+    padding: 22px;
+  }
+
+  .profile-detail-list {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .profile-card-primary {
+    min-height: 0;
+  }
+}
