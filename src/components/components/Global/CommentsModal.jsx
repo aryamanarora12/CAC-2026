@@ -3,7 +3,6 @@ import {
   Typography,
   TextField,
   Button,
-  Divider,
   CircularProgress,
   Stack,
   Paper,
@@ -21,7 +20,6 @@ import {
   getDocs,
   query,
   where,
-  orderBy,
   serverTimestamp,
 } from "firebase/firestore";
 

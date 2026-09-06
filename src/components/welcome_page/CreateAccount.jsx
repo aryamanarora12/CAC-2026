@@ -9,12 +9,10 @@ import "./CreateAccount.css";
 export default function CreateAccount({ onComplete }) {
   const [step, setStep] = useState("auth");
   const [user, setUser] = useState(null);
-  const [username, setUsername] = useState("");
 
   function handleAuthSuccess(authData) {
     if (authData.user) {
       setUser(authData.user);
-      setUsername(authData.username);
     } else {
       setUser(authData);
     }
