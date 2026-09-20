@@ -108,13 +108,13 @@
   background: #007bff;
 }
 
-/* Hover state when mouse sweeps over */
+
 .nav-item:hover {
   background-color: #f8f9fa;
   color: #007bff;
 }
 
-/* Active state showing exactly which page you are currently viewing */
+
 .nav-item.active {
   background-color: #e6f2ff;
   color: #007bff;
