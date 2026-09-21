@@ -1,29 +1,29 @@
 import OpportunityFinderComponent from "../components/OpportunityFinder/OpportunityFinder";
-import { NavLink } from "react-router-dom";
 import NavBar from "../components/components/Global/Navbar";
 import SavedOpportunities from "../components/OpportunityFinder/SavedOpportunities";
-import "./OpportunityFinder.css"
-import { useState, useEffect } from 'react';
-
+import "./OpportunityFinder.css";
+import { useState } from "react";
 
 function OpportunityFinder() {
   const [showSaved, setShowSaved] = useState(false);
+
   return (
-    <div className = "OpportunityFinder-page">
-      <NavBar/>
+    <div className="OpportunityFinder-page">
+      <NavBar />
+
       <OpportunityFinderComponent />
-      <div className = "OpportunityHistory">
+
+      <div className="OpportunityHistory">
         <button onClick={() => setShowSaved(!showSaved)}>
-        {showSaved ? "Hide Saved Opportunities" : "My Saved Opportunities"}
-      </button>
+          {showSaved
+            ? "Hide Saved Opportunities"
+            : "My Saved Opportunities"}
+        </button>
 
-      {showSaved && <SavedOpportunities />}
-
+        {showSaved && <SavedOpportunities />}
       </div>
     </div>
-    
   );
-
 }
 
 export default OpportunityFinder;

@@ -1,65 +1,87 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-:root {
-  --accent: #4f46e5;  /* This changes your main button color (e.g., Indigo Blue) */
-  --border: #ccc;     /* This fixes your input borders */
-  --text-h: #111827;  /* This fixes your heading color */
-}
-
-/* ... the rest of your CSS stays exactly the same ... */
-
 .auth-form {
-  font-family: "Inter", sans-serif;
   max-width: 400px;
-  margin: 60px auto;
-  padding: 30px;
-  background: white;
-  border-radius: 12px;
-  /*box-shadow: var(--shadow);*/
+  margin: 0 auto;
+  padding: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-small);
   text-align: center;
 }
 
 .auth-form h2 {
-  margin-bottom: 20px;
+  margin: 0 0 24px;
+  font-family: var(--heading);
   color: var(--text-h);
 }
 
 .auth-form input {
   width: 100%;
-  padding: 12px;
-  margin: 10px 0;
+  padding: 13px 14px;
+  margin: 7px 0;
+  box-sizing: border-box;
   border-radius: 8px;
   border: 1px solid var(--border);
-  font-size: 16px;
+  background: #fbfcff;
+  color: var(--text-h);
+  font-family: var(--sans);
+  font-size: 15px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(49, 87, 213, 0.12);
 }
 
 .auth-form button {
   width: 100%;
-  padding: 12px;
-  margin-top: 10px;
+  padding: 13px;
+  margin-top: 12px;
   background: var(--accent);
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 700;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.auth-form button:hover:not(:disabled) {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
 }
 
 .auth-form button.google-btn {
-  background: #4285F4;
-  color: white;
-  margin-top: 15px; /* Adds a bit of separation from the main button */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: white;
+  color: var(--text-h);
+  border: 1px solid var(--border);
+  margin-top: 12px;
 }
 
 /* Optional: Add a hover effect so it feels like a real button */
 .auth-form button.google-btn:hover {
-  background: #357ae8;
+  background: #f7f9ff;
+  border-color: var(--accent-border);
+}
+
+.google-icon {
+  width: 19px;
+  height: 19px;
 }
 
 
 .auth-error {
-  color: red;
+  color: #c0394b;
   margin-top: 10px;
+  font-size: 14px;
 }
 
 .toggle {

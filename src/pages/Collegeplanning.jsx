@@ -672,6 +672,5 @@ export default function CollegePlanning({ user }) {
         </div>
 
     );
-
 }
 

@@ -35,7 +35,7 @@ const aliases = {
   // =========================================================
 
   "ela": ["english", "language arts"],
-  "eng": ["english"],
+  "eng": ["english", "engineering"],
   "engl": ["english"],
 
   "lit": ["literature"],
@@ -45,7 +45,6 @@ const aliases = {
   "writing": ["writing"],
   "creative writing": ["creative writing"],
 
-  "journalism": ["journalism"],
   "journ": ["journalism"],
 
   "speech": ["speech"],
@@ -56,7 +55,6 @@ const aliases = {
 
   "shakespeare": ["shakespeare"],
   "poetry": ["poetry"],
-  "drama": ["drama"],
 
   // AP English
 
@@ -96,7 +94,7 @@ const aliases = {
   "algebra 2": ["algebra ii"],
   "alg ii": ["algebra ii"],
 
-  "geo": ["geometry"],
+  "geo": ["geometry", "geography"],
   "geom": ["geometry"],
 
   "trig": ["trigonometry"],
@@ -170,7 +168,6 @@ const aliases = {
   "environmental sci": ["environmental science"],
   "environmental science": ["environmental science"],
 
-  "env": ["environmental"],
 
   "ecology": ["ecology"],
   "eco": ["ecology"],
@@ -201,7 +198,7 @@ const aliases = {
   "genetics": ["genetics"],
   "gen": ["genetics"],
 
-  "micro": ["microbiology"],
+  "micro": ["microbiology", "microeconomics"],
   "microbiology": ["microbiology"],
 
   "biotech": ["biotechnology"],
@@ -326,7 +323,7 @@ const aliases = {
   "game development": ["game development"],
   "game design": ["game design"],
 
-  "graphics": ["computer graphics"],
+  "graphics": ["computer graphics", "graphic design"],
 
   // AP CS
 
@@ -352,7 +349,6 @@ const aliases = {
   // ENGINEERING
   // =========================================================
 
-  "eng": ["engineering"],
   "engr": ["engineering"],
 
   "engineering design": ["engineering design"],
@@ -371,7 +367,7 @@ const aliases = {
   "aerospace": ["aerospace engineering"],
 
   "biomed": ["biomedical engineering"],
-  "biomedical": ["biomedical engineering"],
+  "biomedical": ["biomedical engineering", "biomedical"],
 
   "env eng": ["environmental engineering"],
 
@@ -442,7 +438,6 @@ const aliases = {
   "econ": ["economics"],
 
   "macro": ["macroeconomics"],
-  "micro": ["microeconomics"],
 
   "management": ["management"],
 
@@ -473,7 +468,6 @@ const aliases = {
   "euro": ["european history"],
   "european history": ["european history"],
 
-  "geo": ["geography", "geometry"],
   "geography": ["geography"],
 
   "human geography": ["human geography"],
@@ -596,7 +590,6 @@ const aliases = {
 
   "digital art": ["digital art"],
   "graphic design": ["graphic design"],
-  "graphics": ["graphic design"],
 
   "animation": ["animation"],
   "anim": ["animation"],
@@ -657,7 +650,6 @@ const aliases = {
   "theat": ["theater"],
 
   "acting": ["acting"],
-  "drama": ["drama"],
 
   "musical theater": ["musical theatre"],
   "musical theatre": ["musical theatre"],
@@ -723,7 +715,6 @@ const aliases = {
 
   "public health": ["public health"],
 
-  "biomedical": ["biomedical"],
   "biomed science": ["biomedical science"],
 
 
@@ -731,7 +722,6 @@ const aliases = {
   // ENVIRONMENTAL SCIENCE
   // =========================================================
 
-  "env": ["environmental"],
   "environmental": ["environmental"],
 
   "environment": ["environmental"],
@@ -771,7 +761,6 @@ const aliases = {
   "communications": ["communications"],
   "comm": ["communications"],
 
-  "journalism": ["journalism"],
 
 
   // =========================================================
@@ -830,7 +819,6 @@ const aliases = {
   "3d printing": ["3d printing"],
   "3d print": ["3d printing"],
 
-  "electronics": ["electronics"],
   "elec": ["electronics"],
 
 
@@ -1348,17 +1336,6 @@ export default function CourseAutocomplete({
 
 
   // =========================================================
-  // RESET HIGHLIGHT
-  // =========================================================
-
-  useEffect(() => {
-
-    setHighlightedIndex(0);
-
-  }, [query]);
-
-
-  // =========================================================
   // UI
   // =========================================================
 
@@ -1384,6 +1361,8 @@ export default function CourseAutocomplete({
             setQuery(
               e.target.value
             );
+
+            setHighlightedIndex(0);
 
             setShowSuggestions(true);
 
