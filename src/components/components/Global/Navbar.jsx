@@ -67,7 +67,7 @@ export default function NavBar() {
               mr: { xs: 1, md: 4 },
             }}
           >
-            CAC Planner
+            Nex
           </Typography>
 
           <Box

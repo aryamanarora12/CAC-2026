@@ -34,11 +34,17 @@ body {
   background: var(--bg);
 }
 
-html:has(.subpage) {
+html:has(.subpage),
+html:has(.home-page),
+html:has(.college-planning-page),
+html:has(.OpportunityFinder-page) {
   scrollbar-width: none;
 }
 
-html:has(.subpage)::-webkit-scrollbar {
+html:has(.subpage)::-webkit-scrollbar,
+html:has(.home-page)::-webkit-scrollbar,
+html:has(.college-planning-page)::-webkit-scrollbar,
+html:has(.OpportunityFinder-page)::-webkit-scrollbar {
   display: none;
 }
 
@@ -100,7 +106,7 @@ p {
 }
 
 .subpage-content {
-  width: min(100% - 96px, 1280px);
+  width: min(100% - 101px, 1280px);
   margin: 0 auto;
   padding: 52px 0 80px;
   box-sizing: border-box;
@@ -135,10 +141,12 @@ p {
 }
 
 .subpage-description {
-  max-width: 680px;
-  margin-top: 14px;
+  max-width: 700px;
+  margin-top: 18px;
   color: var(--text);
-  font-size: 1.05rem;
+  font-family: var(--sans);
+  font-size: 1.2rem;
+  line-height: 1.6;
 }
 
 @media (max-width: 600px) {

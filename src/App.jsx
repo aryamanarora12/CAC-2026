@@ -56,7 +56,7 @@ function App() {
 export default App;
 */
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -146,7 +146,7 @@ function App() {
 
         <Route
           path="/home"
-          element={<Home />}
+          element={user ? <Home /> : <Navigate to="/" replace />}
         />
 
 
@@ -157,7 +157,7 @@ function App() {
         <Route
           path="/college"
           element={
-            <CollegePlanning user={user} />
+            user ? <CollegePlanning user={user} /> : <Navigate to="/" replace />
           }
         />
 
@@ -169,7 +169,7 @@ function App() {
         <Route
           path="/opportunities"
           element={
-            <OpportunityFinder />
+            user ? <OpportunityFinder /> : <Navigate to="/" replace />
           }
         />
 
@@ -181,7 +181,7 @@ function App() {
         <Route
           path="/academics"
           element={
-            <Academics />
+            user ? <Academics /> : <Navigate to="/" replace />
           }
         />
 
@@ -193,7 +193,7 @@ function App() {
         <Route
           path="/forum"
           element={
-            <Forum />
+            user ? <Forum /> : <Navigate to="/" replace />
           }
         />
 
@@ -205,7 +205,7 @@ function App() {
         <Route
           path="/profile"
           element={
-            <Profile />
+            user ? <Profile /> : <Navigate to="/" replace />
           }
         />
 

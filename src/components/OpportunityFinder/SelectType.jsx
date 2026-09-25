@@ -34,14 +34,6 @@ export default function SeletType({onSelectType}){
       return (
     <div className="select-type">
 
-      <div className="select-type-header">
-        <h1>Find an Opportunity</h1>
-
-        <p>
-          What type of opportunity are you looking for?
-        </p>
-      </div>
-
       <div className="opportunity-type-grid">
 
         {opportunityTypes.map((type) => (

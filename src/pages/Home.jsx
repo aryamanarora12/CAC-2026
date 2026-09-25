@@ -36,24 +36,23 @@ function Home() {
       <header className="hero-section">
         <div className="hero-content">
           {/* <span className="hero-greeting">{currentGreeting}</span> */}
-          <h1>
-            <large>Welcome to your all-in-one AI Academic advisor</large>
+          <h1 className="hero-title">
+            Welcome to your all-in-one AI Academic Advisor
           </h1>
-          <h1>
-            <small>Our goal:</small>
-          </h1>
-          <h2>
-            Potential is nothing without a plan. We empower high school
-            students by bridging the gap between raw talent and AI-driven
-            productivity to build clear, actionable paths to success.
-          </h2>
+
+          <div className="mission-card">
+            <h2 className="mission-heading">Our Goal</h2>
+            <p className="mission-text">
+              Potential is nothing without a plan. We empower high school
+              students by bridging the gap between raw talent and AI-driven
+              productivity to build clear, actionable paths to success.
+            </p>
+          </div>
         </div>
       </header>
 
       <section className="features-section">
-        <h2>
-          <small>Explore our core tools</small>
-        </h2>
+        <h2 className="tools-heading">Explore Our Core Tools</h2>
 
         <div className="features-grid">
 
