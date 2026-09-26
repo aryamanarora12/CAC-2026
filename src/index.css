@@ -113,9 +113,9 @@ p {
 }
 
 .subpage-content .subpage-title {
-  font-size: clamp(1.25rem, 2.5vw, 2rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
+  font-size: clamp(1.25rem, 2.5vw, 2rem) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.04em !important;
 }
 
 .subpage-header {
@@ -123,30 +123,35 @@ p {
   text-align: left;
 }
 
-.subpage-eyebrow {
+.subpage-eyebrow,
+.subpage .MuiTypography-root.subpage-eyebrow {
   margin-bottom: 8px;
   color: var(--accent);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
 }
 
-.subpage-title {
-  margin: 0;
-  color: var(--text-h);
-  font-family: var(--heading);
-  font-size: clamp(2rem, 4vw, 3.25rem);
-  line-height: 1.05;
+.subpage-title,
+.subpage .MuiTypography-root.subpage-title {
+  margin: 0 !important;
+  color: var(--text-h) !important;
+  font-family: var(--heading) !important;
+  font-size: clamp(1.25rem, 2.5vw, 2rem) !important;
+  line-height: 1.1 !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.04em !important;
 }
 
-.subpage-description {
+.subpage-description,
+.subpage .MuiTypography-root.subpage-description {
   max-width: 700px;
-  margin-top: 18px;
-  color: var(--text);
-  font-family: var(--sans);
-  font-size: 1.2rem;
-  line-height: 1.6;
+  margin-top: 18px !important;
+  color: var(--text) !important;
+  font-family: var(--sans) !important;
+  font-size: 1.05rem !important;
+  line-height: 1.6 !important;
 }
 
 @media (max-width: 600px) {

@@ -51,19 +51,19 @@
 
 .college-planning-header .subpage-title {
     color: var(--text-h, #172033);
-    font-family: var(--heading, "Space Grotesk", sans-serif);
-    font-size: clamp(2rem, 4vw, 3.25rem);
-    line-height: 1.05;
+    font-family: var(--heading);
+    font-size: clamp(1.25rem, 2.5vw, 2rem);
+    line-height: 1.1;
     letter-spacing: -0.04em;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .college-planning-header .subpage-description {
     max-width: 700px;
     margin-top: 18px;
     color: var(--text, #5d687b);
-    font-family: var(--sans, "DM Sans", sans-serif);
-    font-size: 1.2rem;
+    font-family: var(--sans);
+    font-size: 1.05rem;
     line-height: 1.6;
 }
 
