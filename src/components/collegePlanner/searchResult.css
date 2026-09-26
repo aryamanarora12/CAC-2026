@@ -4,12 +4,10 @@
    ===================================================== */
 
 .college-results-page {
-    font-family: "Inter", sans-serif;
-    max-width: 1200px;
-
+    width: min(100% - 101px, 1280px);
     margin: 0 auto;
-
-    padding: 65px 30px 80px;
+    padding: 52px 0 80px;
+    box-sizing: border-box;
 }
 
 
@@ -18,40 +16,36 @@
    ===================================================== */
 
 .college-results-header {
-    text-align: center;
-
-    max-width: 750px;
-
-    margin: 0 auto 45px;
+    margin-bottom: 36px;
+    text-align: left;
+    max-width: 760px;
 }
 
 .college-results-label {
-    margin-bottom: 10px;
-
-    font-size: 13px;
-
+    margin-bottom: 8px;
+    color: var(--accent, #3157d5);
+    font-size: 0.75rem;
     font-weight: 700;
-
-    letter-spacing: 1.5px;
-
-    color: #6366f1;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
 }
 
 .college-results-header h1 {
     margin: 0;
-
-    font-size: 40px;
-
-    color: #171827;
+    color: var(--text-h, #172033);
+    font-family: var(--heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    font-weight: 700;
 }
 
 .college-results-header > p:last-child {
-    margin-top: 14px;
-
-    color: #6b7280;
-
-    font-size: 16px;
-
+    max-width: 700px;
+    margin-top: 18px;
+    color: var(--text, #5d687b);
+    font-family: var(--sans, "DM Sans", sans-serif);
+    font-size: 1.2rem;
     line-height: 1.6;
 }
 

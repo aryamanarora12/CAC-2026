@@ -262,12 +262,33 @@ export default function Search({ user, onComplete }) {
     /* =====================================================
        SEARCH COMPLETE
        
-       Normally this component should immediately call
-       onComplete() and CollegePlanning.jsx will switch
-       to SearchResults.jsx.
+       The parent is expected to switch to the results view
+       via onComplete(). For a moment, render a visible
+       status instead of a blank screen.
        ===================================================== */
 
-    return null;
+    return (
+
+        <div className="college-search-loading">
+
+            <div className="college-search-loading-card">
+
+                <div className="college-search-spinner"></div>
+
+                <h2>
+                    Preparing Your College Matches
+                </h2>
+
+                <p>
+                    We found your results and are loading the
+                    best fits for you.
+                </p>
+
+            </div>
+
+        </div>
+
+    );
 
 }
 

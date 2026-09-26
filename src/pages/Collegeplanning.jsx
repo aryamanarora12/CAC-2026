@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from "react";
+import { Typography } from "@mui/material";
 import { doc, getDoc } from "firebase/firestore";
 
 import NavBar from "../components/components/Global/Navbar";
@@ -359,24 +360,24 @@ export default function CollegePlanning({ user }) {
 
             {currentView === "home" && (
 
-                <div className="college-planning-home">
+                <main className="subpage-content college-planning-home">
 
-                    <div className="college-planning-header">
+                    <header className="subpage-header college-planning-header">
 
-                        <p className="college-planning-label">
-                            COLLEGE PLANNING
+                        <p className="subpage-eyebrow">
+                            Find your fit
                         </p>
 
-                        <h1>
-                            Find Your College Match
-                        </h1>
+                        <Typography component="h1" className="subpage-title">
+                            College Planning
+                        </Typography>
 
-                        <p>
+                        <p className="subpage-description">
                             Discover colleges that fit your
                             academic interests and preferences.
                         </p>
 
-                    </div>
+                    </header>
 
 
                     {/* =============================================
@@ -556,7 +557,7 @@ export default function CollegePlanning({ user }) {
 
                     </div>
 
-                </div>
+                </main>
 
             )}
 
