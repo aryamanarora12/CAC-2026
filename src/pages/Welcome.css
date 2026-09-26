@@ -58,7 +58,7 @@
   font-size: 40px;
   font-weight: 700;
 
-  color: #1f2937;
+  color: var(--accent);
 }
 
 .welcome-header p {
@@ -97,7 +97,9 @@
 .create-account-option p {
   margin: 0 0 12px;
 
+  font-family: var(--sans);
   font-size: 14px;
+  font-weight: 500;
 
   color: #6b7280;
 }
@@ -119,6 +121,7 @@
 
   color: #2563eb;
 
+  font-family: var(--sans);
   font-size: 15px;
   font-weight: 600;
 

@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import { CalendarTodayOutlined, Google, Mail, Person } from "@mui/icons-material";
 import { Typography } from "@mui/material";
+import {
+  reauthenticateWithPopup,
+  signInWithPopup,
+  updatePassword,
+} from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import Navbar from "../components/components/Global/Navbar";
-import { auth, db } from "../firebase";
+import { auth, db, googleProvider } from "../firebase";
 import "./Profile.css";
 
 function formatDate(dateString) {
@@ -43,6 +48,15 @@ function getAccountAge(dateString) {
 function Profile() {
   const [user, setUser] = useState(auth.currentUser);
   const [profileName, setProfileName] = useState("");
+  const [googleStatus, setGoogleStatus] = useState("");
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [passwordForm, setPasswordForm] = useState({
+    visible: false,
+    password: "",
+    confirmPassword: "",
+    status: "",
+    loading: false,
+  });
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
@@ -65,7 +79,78 @@ function Profile() {
   const isGoogleConnected = user?.providerData?.some(
     (provider) => provider.providerId === "google.com"
   );
+  const hasPasswordSignIn = user?.providerData?.some(
+    (provider) => provider.providerId === "password"
+  );
   const initial = name.charAt(0).toUpperCase();
+
+  async function handleGoogleConnect() {
+    try {
+      setGoogleLoading(true);
+      setGoogleStatus("");
+
+      const result = await signInWithPopup(auth, googleProvider);
+      setUser(result.user);
+      setGoogleStatus("Google account connected successfully.");
+    } catch (error) {
+      console.error("Google connect error:", error);
+      setGoogleStatus("Google sign-in was not completed. Please try again.");
+    } finally {
+      setGoogleLoading(false);
+    }
+  }
+
+  async function handleCreatePassword(e) {
+    e.preventDefault();
+
+    if (!auth.currentUser) {
+      setPasswordForm((current) => ({
+        ...current,
+        status: "You need to be signed in before creating a password.",
+      }));
+      return;
+    }
+
+    if (passwordForm.password.length < 6) {
+      setPasswordForm((current) => ({
+        ...current,
+        status: "Password must be at least 6 characters long.",
+      }));
+      return;
+    }
+
+    if (passwordForm.password !== passwordForm.confirmPassword) {
+      setPasswordForm((current) => ({
+        ...current,
+        status: "Passwords do not match.",
+      }));
+      return;
+    }
+
+    try {
+      setPasswordForm((current) => ({ ...current, loading: true, status: "" }));
+
+      await reauthenticateWithPopup(auth.currentUser, googleProvider);
+      await updatePassword(auth.currentUser, passwordForm.password);
+
+      setPasswordForm({
+        visible: false,
+        password: "",
+        confirmPassword: "",
+        status: "Password created successfully.",
+        loading: false,
+      });
+
+      setGoogleStatus("Google confirmation completed. Password created successfully.");
+    } catch (error) {
+      console.error("Password creation error:", error);
+      setPasswordForm((current) => ({
+        ...current,
+        loading: false,
+        status: "Google confirmation is required before creating a password.",
+      }));
+    }
+  }
 
   return (
     <div className="subpage">
@@ -121,9 +206,93 @@ function Profile() {
               </div>
               <p className="card-supporting-text">
                 {isGoogleConnected
-                  ? "Your Google account can be used to sign in to Nex."
+                  ? "Your Google account is confirmed and can be used to sign in to Nex."
                   : "Your account is currently using email and password sign-in."}
               </p>
+
+              {!isGoogleConnected && (
+                <button
+                  type="button"
+                  className="google-connect-button"
+                  onClick={handleGoogleConnect}
+                  disabled={googleLoading}
+                >
+                  {googleLoading ? "Connecting..." : "Continue with Google"}
+                </button>
+              )}
+
+              {googleStatus && (
+                <p className="google-status-message">{googleStatus}</p>
+              )}
+
+              <div className="password-status-block">
+                <div className="password-status-row">
+                  <span>Password</span>
+                  <span className={`password-status-pill ${hasPasswordSignIn ? "is-enabled" : "is-disabled"}`}>
+                    {hasPasswordSignIn ? "Enabled" : "Disabled"}
+                  </span>
+                </div>
+
+                <div className="password-visibility-box">
+                  <p>
+                    {hasPasswordSignIn
+                      ? "Password sign-in is enabled for this account."
+                      : "This account does not currently use a password login."}
+                  </p>
+                  {!hasPasswordSignIn && isGoogleConnected && (
+                    <button
+                      type="button"
+                      className="password-create-trigger"
+                      onClick={() =>
+                        setPasswordForm((current) => ({
+                          ...current,
+                          visible: !current.visible,
+                          status: "",
+                        }))
+                      }
+                    >
+                      Create password
+                    </button>
+                  )}
+                  {!hasPasswordSignIn && !isGoogleConnected && (
+                    <small>
+                      Connect with Google first to add a password option for this account.
+                    </small>
+                  )}
+                  {passwordForm.visible && (
+                    <form className="password-create-form" onSubmit={handleCreatePassword}>
+                      <input
+                        type="password"
+                        placeholder="New password"
+                        value={passwordForm.password}
+                        onChange={(e) =>
+                          setPasswordForm((current) => ({
+                            ...current,
+                            password: e.target.value,
+                          }))
+                        }
+                      />
+                      <input
+                        type="password"
+                        placeholder="Confirm password"
+                        value={passwordForm.confirmPassword}
+                        onChange={(e) =>
+                          setPasswordForm((current) => ({
+                            ...current,
+                            confirmPassword: e.target.value,
+                          }))
+                        }
+                      />
+                      <button type="submit" disabled={passwordForm.loading}>
+                        {passwordForm.loading ? "Confirming..." : "Confirm with Google"}
+                      </button>
+                    </form>
+                  )}
+                  {passwordForm.status && (
+                    <small className="password-form-status">{passwordForm.status}</small>
+                  )}
+                </div>
+              </div>
             </article>
 
             <article className="profile-card account-age-card">

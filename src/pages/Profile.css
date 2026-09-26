@@ -169,6 +169,145 @@
   line-height: 1.45;
 }
 
+.google-connect-button {
+  width: 100%;
+  margin-top: 14px;
+  padding: 11px 14px;
+  border: 1px solid #dadce0;
+  border-radius: 10px;
+  background: #fff;
+  color: #1f2937;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.google-connect-button:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: #f5f7ff;
+}
+
+.google-connect-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.google-status-message {
+  margin-top: 8px;
+  font-size: 0.78rem;
+  color: var(--accent);
+  line-height: 1.4;
+}
+
+.password-status-block {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.password-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--text-h);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.password-status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.password-status-pill.is-enabled {
+  background: rgba(32, 120, 76, 0.12);
+  color: #1f7a4a;
+}
+
+.password-status-pill.is-disabled {
+  background: rgba(148, 163, 184, 0.14);
+  color: #64748b;
+}
+
+.password-visibility-box {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #f7f9fc;
+  border: 1px solid var(--border);
+}
+
+.password-visibility-box p {
+  margin: 0;
+  color: var(--text-h);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.password-create-trigger {
+  width: 100%;
+  margin-top: 10px;
+  padding: 9px 12px;
+  border: 1px solid var(--accent-border);
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.password-create-form {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.password-create-form input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font: inherit;
+}
+
+.password-create-form button {
+  width: 100%;
+  padding: 9px 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: white;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.password-form-status {
+  display: block;
+  margin-top: 8px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.password-visibility-box small {
+  display: block;
+  margin-top: 6px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
 .account-age {
   margin-top: 20px;
   color: var(--text-h);
