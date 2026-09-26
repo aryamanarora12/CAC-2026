@@ -121,7 +121,7 @@ function Profile() {
               </div>
               <p className="card-supporting-text">
                 {isGoogleConnected
-                  ? "Your Google account can be used to sign in to CAC Planner."
+                  ? "Your Google account can be used to sign in to Nex."
                   : "Your account is currently using email and password sign-in."}
               </p>
             </article>

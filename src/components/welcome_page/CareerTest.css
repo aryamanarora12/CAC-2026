@@ -14,12 +14,12 @@
 .career-test-container { 
   font-family: "Inter", sans-serif; 
   color: var(--text-main);
-  max-width: 640px; /* Reduced for better reading width */
-  margin: 60px auto; 
-  padding: 40px; 
+  max-width: 620px;
+  margin: 40px auto; 
+  padding: 30px 20px; 
   background: white; 
-  border-radius: 16px; /* Modern, softer corners */
-  box-shadow: var(--shadow); 
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
   text-align: center; 
   display: flex;
   flex-direction: column; 
@@ -199,10 +199,11 @@
 }
 
 .answer-buttons { 
-  margin-top: 24px; 
+  margin-top: 18px; 
   display: flex;
   flex-direction: column;
   width: 100%;
+  gap: 8px;
 }
 
 .loading { 
@@ -215,13 +216,13 @@
 
 .test button{
   width: 100%;
-  margin-top: 10px;
-  padding: 10px;
+  margin-top: 0;
+  padding: 12px 14px;
   border: none;
   border-radius: 12px;
-  background: #437bcf;
+  background: #3157d5;
   color: white;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   transition: 0.2s ease;
