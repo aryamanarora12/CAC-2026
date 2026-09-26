@@ -8,6 +8,8 @@ import {
 } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import Navbar from "../components/components/Global/Navbar";
+import UserInfoForm from "../components/welcome_page/UserInfoForm";
+import CareerTest from "../components/welcome_page/CareerTest";
 import { auth, db, googleProvider } from "../firebase";
 import "./Profile.css";
 
@@ -57,6 +59,9 @@ function Profile() {
     status: "",
     loading: false,
   });
+  const [retakeSurveyOpen, setRetakeSurveyOpen] = useState(false);
+  const [retakeSurveyStep, setRetakeSurveyStep] = useState("userinfo");
+  const [profileData, setProfileData] = useState({});
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
@@ -64,11 +69,14 @@ function Profile() {
 
       if (!currentUser) {
         setProfileName("");
+        setProfileData({});
         return;
       }
 
       const profileSnapshot = await getDoc(doc(db, "users", currentUser.uid));
-      setProfileName(profileSnapshot.data()?.name || "");
+      const data = profileSnapshot.data() || {};
+      setProfileName(data.name || "");
+      setProfileData(data);
     });
 
     return unsubscribe;
@@ -83,6 +91,37 @@ function Profile() {
     (provider) => provider.providerId === "password"
   );
   const initial = name.charAt(0).toUpperCase();
+  const parseCourseList = (courses) => {
+    if (!Array.isArray(courses) || courses.length === 0) {
+      return [];
+    }
+
+    return courses
+      .map((course) => {
+        if (typeof course === "string") return course;
+        if (course && typeof course === "object") return course.name || course.courseName || "Unknown course";
+        return "";
+      })
+      .filter(Boolean);
+  };
+
+  const surveySelections = [
+    { label: "School", value: profileData.school || "Not answered yet" },
+    { label: "Age", value: profileData.age ? String(profileData.age) : "Not answered yet" },
+    { label: "State", value: profileData.state || "Not answered yet" },
+    {
+      label: "Interests",
+      value: Array.isArray(profileData.interests) && profileData.interests.length
+        ? profileData.interests.join(", ")
+        : "Not answered yet",
+    },
+    { label: "Career", value: profileData.major || "Not answered yet" },
+  ];
+
+  const courseGroups = [
+    { label: "Courses taken", items: parseCourseList(profileData.pastCourses) },
+    { label: "Courses taking", items: parseCourseList(profileData.currentCourses) },
+  ];
 
   async function handleGoogleConnect() {
     try {
@@ -155,6 +194,41 @@ function Profile() {
   return (
     <div className="subpage">
       <Navbar />
+      {retakeSurveyOpen && (
+        <div className="survey-retake-overlay" onClick={() => setRetakeSurveyOpen(false)}>
+          <div className="survey-retake-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="survey-retake-header">
+              <div>
+                <p className="profile-label">Profile update</p>
+                <h2>Retake onboarding survey</h2>
+              </div>
+              <button
+                type="button"
+                className="survey-retake-close"
+                onClick={() => setRetakeSurveyOpen(false)}
+              >
+                ×
+              </button>
+            </div>
+
+            {retakeSurveyStep === "userinfo" ? (
+              <UserInfoForm
+                user={user}
+                onSubmit={() => setRetakeSurveyStep("career")}
+              />
+            ) : (
+              <CareerTest
+                user={user}
+                onComplete={() => {
+                  setRetakeSurveyOpen(false);
+                  setRetakeSurveyStep("userinfo");
+                }}
+              />
+            )}
+          </div>
+        </div>
+      )}
+
       <main className="subpage-content">
         <header className="subpage-header">
           <p className="subpage-eyebrow">Your college story</p>
@@ -170,6 +244,48 @@ function Profile() {
                 <p className="profile-label">Account name</p>
                 <h2 className="profile-name">{name}</h2>
                 <p className="profile-email">{email}</p>
+              </div>
+            </div>
+
+            <div className="profile-primary-actions">
+              <button
+                type="button"
+                className="retake-survey-button"
+                onClick={() => setRetakeSurveyOpen(true)}
+              >
+                Retake onboarding survey
+              </button>
+              <div className="profile-results-slot" aria-live="polite">
+                <div className="profile-survey-results">
+                  <p className="profile-label profile-results-label">Onboarding selections</p>
+                  <div className="profile-survey-grid">
+                    {surveySelections.map((item) => (
+                      <div key={item.label} className="profile-survey-row">
+                        <span className="profile-survey-label">{item.label}</span>
+                        <p className="profile-survey-value">{item.value}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="profile-course-groups">
+                    {courseGroups.map((group) => (
+                      <div key={group.label} className="profile-course-group">
+                        <span className="profile-survey-label">{group.label}</span>
+                        <div className="profile-course-grid">
+                          {group.items.length > 0 ? (
+                            group.items.map((course, index) => (
+                              <div key={`${group.label}-${course}-${index}`} className="profile-course-cell">
+                                {course}
+                              </div>
+                            ))
+                          ) : (
+                            <div className="profile-course-cell empty">Not answered yet</div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
