@@ -15,9 +15,6 @@ import {
   Drawer,
 } from "@mui/material";
 
-import CommentIcon from "@mui/icons-material/Comment";
-import RefreshIcon from "@mui/icons-material/Refresh";
-
 import Navbar from "../components/components/Global/Navbar";
 
 import { useState, useEffect } from "react";
@@ -556,14 +553,14 @@ function Forum() {
                               variant="outlined"
                               size="small"
                               onClick={() => {
-                                  console.log("Question object:", q);
-                                  console.log("Question ID:", q.id);
+                                console.log("Question object:", q);
+                                console.log("Question ID:", q.id);
 
-                                  setQuestionId(q.id);
-                                  setOpen(true);
+                                setQuestionId(q.id);
+                                setOpen(true);
                               }}
                               startIcon={
-                                <CommentIcon />
+                                <span>💬</span>
                               }
 
                               sx={{
@@ -618,7 +615,7 @@ function Forum() {
                       <Button
                         size="small"
                         variant="outlined"
-                        startIcon={<RefreshIcon />}
+                        startIcon={<span>↻</span>}
                         onClick={refreshPeople}
                         sx={{
                           borderRadius: 999,
