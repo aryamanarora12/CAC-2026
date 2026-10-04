@@ -1,4 +1,5 @@
 import { Button, Card, CardContent, TextField, Typography } from "@mui/material";
+import { ChevronLeft } from "lucide-react";
 import Navbar from "../components/components/Global/Navbar";
 import { getAuth } from "firebase/auth";
 import { useEffect, useRef, useState } from "react";
@@ -15,6 +16,7 @@ import {
 } from "firebase/firestore";
 import { intialRequest } from "../chatbotfunctions";
 import Loader from "../components/components/Global/Loader";
+import "./Academics.css";
 
 function Academics() {
   const auth = getAuth();
@@ -26,6 +28,7 @@ function Academics() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [previousChats, setPreviousChats] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isHistoryCollapsed, setIsHistoryCollapsed] = useState(false);
 
   const chatRef = useRef(null);
 
@@ -187,8 +190,8 @@ function Academics() {
     <div className="subpage">
       <Navbar />
 
-      <main className="subpage-content">
-        <header className="subpage-header">
+      <main className="subpage-content academics-content">
+      <header className="subpage-header academics-header">
           <p className="subpage-eyebrow">Make every class count</p>
 
           <Typography component="h1" className="subpage-title">
@@ -199,140 +202,146 @@ function Academics() {
             Track the courses and habits that support the future you are building.
           </p>
 
-          <Card
-            style={{
-              height: "500px",
-              display: "flex",
-              borderRadius: 20,
-            }}
-          >
-            <CardContent
-              style={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              {/* Header Inputs */}
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  gap: "15px",
-                }}
-              >
+          <Card className="academics-chat-card">
+            <CardContent className="academics-chat-content">
+              <div className="academics-chat-heading">
+                <div>
+                  <p className="academics-chat-eyebrow">Your study space</p>
+                  <Typography component="h2" className="academics-chat-title">
+                    Study assistant
+                  </Typography>
+                  <p className="academics-chat-caption">
+                    Ask questions, work through a challenge, or pick up where you left off.
+                  </p>
+                </div>
+              </div>
+
+              <div className="academics-chat-toolbar">
                 <TextField
                   value={text}
                   onChange={(event) => setText(event.target.value)}
-                  label="Enter Prompt"
+                  className="academics-chat-input"
+                  label="Ask your study assistant"
+                  placeholder="What would you like help with?"
                   disabled={isGenerating}
-                  sx={{ flex: 1 }}
                 />
 
                 <Button
                   disabled={text.trim() === "" || isGenerating}
                   onClick={onSubmit}
-                  style={{
-                    backgroundColor:
-                      text.trim() === "" || isGenerating ? "grey" : "blue",
-                    color: "white",
-                    height: "50px",
-                  }}
+                  variant="contained"
+                  className="academics-submit-button"
                 >
                   {isGenerating ? "Thinking..." : "Submit"}
                 </Button>
 
                 <Button
                   variant="outlined"
+                  className="academics-save-button"
                   disabled={chats.length === 0 || loading}
                   onClick={saveChat}
-                  style={{ height: "50px" }}
                 >
                   {currentChatId ? "Update Chat" : "Save Chat"}
                 </Button>
 
                 <Button
                   variant="text"
+                  className="academics-new-chat-button"
                   onClick={startNewChat}
-                  style={{ height: "50px" }}
                 >
                   + New
                 </Button>
               </div>
 
-              {/* Chat View & Previous Chats Sidebar */}
-              <div style={{ display: "flex", flex: 1, marginTop: "15px", overflow: "hidden" }}>
-                {/* Active Chat Container */}
+              <div
+                className={`academics-chat-workspace ${
+                  isHistoryCollapsed ? "is-history-collapsed" : ""
+                }`}
+              >
                 <div
                   ref={chatRef}
-                  style={{
-                    flex: 1,
-                    overflowY: "auto",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "10px",
-                    padding: "10px 15px",
-                  }}
+                  className="academics-chat-messages"
                 >
                   {!loading ? (
-                    chats.map((c, index) => (
-                      <div
-                        key={index}
-                        style={{
-                          padding: "10px 14px",
-                          border: "1px solid #ddd",
-                          borderRadius: "12px",
-                          maxWidth: "65%",
-                          width: "fit-content",
-                          overflowWrap: "anywhere",
-                          alignSelf:
-                            c.role === "user" ? "flex-end" : "flex-start",
-                          backgroundColor:
-                            c.role === "user" ? "#D6E9FF" : "#F4F6F8",
-                        }}
-                      >
-                        <p style={{ margin: 0 }}>{c.text}</p>
+                    chats.length > 0 ? (
+                      chats.map((c, index) => (
+                        <div
+                          key={index}
+                          className={`academics-chat-message ${
+                            c.role === "user" ? "is-user" : "is-assistant"
+                          }`}
+                        >
+                          <p>{c.text}</p>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="academics-chat-empty">
+                        <span className="academics-chat-empty-icon" aria-hidden="true">
+                          ✦
+                        </span>
+                        <Typography component="h3">
+                          What are you working on?
+                        </Typography>
+                        <p>
+                          Get help understanding a topic, organizing your study plan,
+                          or building better academic habits.
+                        </p>
                       </div>
-                    ))
+                    )
                   ) : (
                     <Loader />
                   )}
                 </div>
 
-                {/* Previous Chats Drawer */}
-                <div
-                  style={{
-                    width: "250px",
-                    borderLeft: "1px solid #ddd",
-                    padding: "10px",
-                    overflowY: "auto",
-                  }}
-                >
-                  <Typography variant="h6" style={{ fontSize: "16px", fontWeight: "bold" }}>
-                    Previous Chats
-                  </Typography>
-                  <div style={{ marginTop: "10px", display: "flex", flexDirection: "column", gap: "8px" }}>
-                    {previousChats.map((item) => (
-                      <div
-                        key={item.id}
-                        onClick={() => selectPreviousChat(item)}
-                        style={{
-                          padding: "8px 12px",
-                          borderRadius: "8px",
-                          backgroundColor: currentChatId === item.id ? "#e0e0e0" : "#f9f9f9",
-                          cursor: "pointer",
-                          border: "1px solid #eee",
-                        }}
-                      >
-                        <Typography variant="body2" style={{ fontWeight: 500, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                          {item.chatTitle || "Untitled Chat"}
-                        </Typography>
-                      </div>
-                    ))}
+                <aside className={`academics-chat-history ${isHistoryCollapsed ? "is-collapsed" : ""}`}>
+                  <div className="academics-chat-history-header">
+                    <Typography component="h3" className="academics-chat-history-title">
+                      Previous Chats
+                    </Typography>
+                    <Button
+                      className="academics-chat-history-toggle"
+                      onClick={() => setIsHistoryCollapsed((collapsed) => !collapsed)}
+                      aria-label={`${isHistoryCollapsed ? "Show" : "Hide"} previous chats`}
+                      aria-expanded={!isHistoryCollapsed}
+                      aria-controls="academics-chat-history-list"
+                      title={`${isHistoryCollapsed ? "Show" : "Hide"} previous chats`}
+                    >
+                      <ChevronLeft
+                        className={`academics-history-icon ${
+                          isHistoryCollapsed ? "is-collapsed" : ""
+                        }`}
+                        size={18}
+                        strokeWidth={2.25}
+                        aria-hidden="true"
+                      />
+                    </Button>
                   </div>
-                </div>
+                  <div
+                    id="academics-chat-history-list"
+                    className="academics-chat-history-list"
+                    hidden={isHistoryCollapsed}
+                  >
+                    {previousChats.length > 0 ? (
+                      previousChats.map((item) => (
+                        <Button
+                          key={item.id}
+                          onClick={() => selectPreviousChat(item)}
+                          className={`academics-chat-history-item ${
+                            currentChatId === item.id ? "is-active" : ""
+                          }`}
+                          aria-current={currentChatId === item.id ? "true" : undefined}
+                          title={item.chatTitle || "Untitled Chat"}
+                        >
+                          {item.chatTitle || "Untitled Chat"}
+                        </Button>
+                      ))
+                    ) : (
+                      <p className="academics-chat-history-empty">
+                        Saved conversations will appear here.
+                      </p>
+                    )}
+                  </div>
+                </aside>
               </div>
             </CardContent>
           </Card>
